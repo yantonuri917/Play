@@ -11,446 +11,48 @@
 <meta name="twitter:url" content="https://example.com">
   
 <meta charset="UTF-8">
-<title>folder</title>
+<title>folder1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-  .ad-container{
-width:100%;
-display:flex;
-justify-content:center;
-margin:14px 0
+body {
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  margin:0;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity .6s ease;
 }
-.ad-inner{
-max-width:728px;
-width:100%;
-overflow:hidden;
-display:flex;
-justify-content:center
+body.fade-out { opacity:0; }
+.loader {
+  width:40px;
+  height:40px;
+  border:5px solid #444;
+  border-top:5px solid #fff;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin-bottom:12px;
 }
-
-/* Tablet */
-@media(max-width:768px){
-.ad-inner{max-width:468px}
-}
-
-/* Mobile */
-@media(max-width:480px){
-.ad-inner{max-width:320px}
-}
-
-
-  
-:root{
---bg:#0e1624;--header:#1b2638;--card:#0f1b2d;
---line:rgba(255,255,255,.08);--text:#e5e7eb;
---muted:#94a3b8;--blue:#3b82f6}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text)}
-
-/* HEADER */
-.header{background:var(--header);padding:12px 14px;display:flex;align-items:center}
-.logo{font-weight:700;font-size:18px}
-.menu{margin-left:auto;width:36px;height:36px;background:var(--blue);
-border-radius:8px;display:flex;align-items:center;justify-content:center}
-
-/* CONTENT */
-.container{padding:14px;display:none}
-.folder{display:flex;gap:12px;align-items:center;margin-bottom:14px}
-.folder h1{font-size:18px;margin:0}
-.folder span{font-size:12px;color:var(--muted)}
-
-.files{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-@media(max-width:720px){.files{grid-template-columns:1fr}}
-
-.file{background:var(--card);border:1px solid var(--line);
-border-radius:14px;padding:10px}
-
-/* THUMB */
-.thumb{aspect-ratio:16/9;background:#000;border-radius:10px;
-overflow:hidden;cursor:pointer;position:relative}
-.thumb canvas{width:100%;height:100%}
-.thumb::after{
-content:"▶";position:absolute;inset:0;
-display:flex;align-items:center;justify-content:center;
-font-size:34px;background:rgba(0,0,0,.25)}
-.time{
-position:absolute;bottom:6px;right:6px;
-font-size:11px;padding:2px 6px;
-background:rgba(0,0,0,.6);border-radius:4px}
-
-/* INFO */
-.info{margin-top:8px}
-.name{font-size:14px}
-.meta{font-size:12px;color:var(--muted);margin-top:4px}
-
-/* PLAYER */
-.player{display:none;margin-top:8px}
-.video-wrap{position:relative;background:#000;border-radius:12px;overflow:hidden}
-video{width:100%;display:block}
-
-/* CONTROLS */
-.controls{
-position:absolute;left:0;right:0;bottom:0;
-background:linear-gradient(transparent,rgba(0,0,0,.85));
-display:flex;align-items:center;gap:8px;padding:8px}
-.controls button{
-background:none;border:0;color:#fff;font-size:16px;cursor:pointer}
-.controls input{flex:1}
-.controls span{font-size:12px}
-
-/* DOWNLOAD BUTTON */
-.download{
-display:flex;align-items:center;justify-content:center;gap:10px;
-margin-top:10px;padding:12px 14px;border-radius:14px;
-font-weight:600;font-size:14px;color:#fff;text-decoration:none;
-background:linear-gradient(135deg,#3b82f6,#2563eb);
-box-shadow:0 10px 25px rgba(59,130,246,.35),
-inset 0 1px 0 rgba(255,255,255,.25);
-transition:.25s ease;position:relative;overflow:hidden}
-.download::before{
-content:"";position:absolute;inset:0;
-background:linear-gradient(120deg,transparent,
-rgba(255,255,255,.25),transparent);
-transform:translateX(-100%);transition:.5s}
-.download:hover{transform:translateY(-1px);
-box-shadow:0 14px 30px rgba(59,130,246,.45)}
-.download:hover::before{transform:translateX(100%)}
-.download span{font-size:18px;animation:bounce 1.6s infinite}
-@keyframes bounce{50%{transform:translateY(-4px)}}
+@keyframes spin { to{transform:rotate(360deg)} }
 </style>
 </head>
+
 <body>
-
-<div id="page-loader"><div class="spinner"></div></div>
-
-<div class="header">
-  <div class="logo">goflie.fun</div>
-  <div class="menu">≡</div>
+<div style="text-align:center">
+  <div class="loader"></div>
+  loading...
 </div>
 
-<div class="container">
-<div class="folder">
-  <div>📁</div>
-  <div><h1>root</h1><span>5 files · public</span></div>
-</div>
-
-<div class="files">
-
-<!-- VIDEO ITEM x5 -->
-<!-- Cukup ganti nama & durasi jika mau -->
-<div class="ad-container">
-  <div class="ad-inner">
-    <script>
-      atOptions = {
-        'key' : '64e783bd557c30cbf66293b5c5fda05f',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://heroptionssideway.com/64e783bd557c30cbf66293b5c5fda05f/invoke.js"></script>
-  </div>
-</div>
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">09:32</div>
-  </div>
-  <div class="info"><div class="name">video_01.mp4</div><div class="meta">32 MB</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video preload="none" playsinline data-src="https://cdn.videy.co/VDSNgxcG1.mp4"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" data-download>
-      <span>⬇</span><div>Download<br><small>High speed</small></div>
-    </a>
-  </div>
-</div>
-  <div class="ad-container">
-  <div class="ad-inner">
-    <script>
-      atOptions = {
-        'key' : '64e783bd557c30cbf66293b5c5fda05f',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://heroptionssideway.com/64e783bd557c30cbf66293b5c5fda05f/invoke.js"></script>
-  </div>
-</div>
-
-  
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">09:32</div>
-  </div>
-  <div class="info"><div class="name">video_01.mp4</div><div class="meta">32 MB</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video preload="none" playsinline data-src="https://cdn.videy.co/jeOZqjqg1.mp4"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" data-download>
-      <span>⬇</span><div>Download<br><small>High speed</small></div>
-    </a>
-  </div>
-</div>
-  <div class="ad-container">
-  <div class="ad-inner">
-    <script>
-      atOptions = {
-        'key' : '64e783bd557c30cbf66293b5c5fda05f',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://heroptionssideway.com/64e783bd557c30cbf66293b5c5fda05f/invoke.js"></script>
-  </div>
-</div>
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">14:18</div>
-  </div>
-  <div class="info"><div class="name">video_02.mp4</div><div class="meta">54 MB</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video preload="none" playsinline data-src="https://cdn.videy.co/chBpEso01.mp4"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" data-download>
-      <span>⬇</span><div>Download<br><small>High speed</small></div>
-    </a>
-  </div>
-</div>
-  
-  <div class="ad-container">
-  <div class="ad-inner">
-    <script>
-      atOptions = {
-        'key' : '64e783bd557c30cbf66293b5c5fda05f',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://heroptionssideway.com/64e783bd557c30cbf66293b5c5fda05f/invoke.js"></script>
-  </div>
-</div>
-
-  
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">14:18</div>
-  </div>
-  <div class="info"><div class="name">video_02.mp4</div><div class="meta">54 MB</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video preload="none" playsinline data-src="https://cdn.videy.co/zMXpwOWb1.mp4"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" data-download>
-      <span>⬇</span><div>Download<br><small>High speed</small></div>
-    </a>
-  </div>
-</div>
-  
-  <div class="ad-container">
-  <div class="ad-inner">
-    <script>
-      atOptions = {
-        'key' : '64e783bd557c30cbf66293b5c5fda05f',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://heroptionssideway.com/64e783bd557c30cbf66293b5c5fda05f/invoke.js"></script>
-  </div>
-</div>
-
-  
-
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">00:42</div>
-  </div>
-  <div class="info"><div class="name">video_03.mp4</div><div class="meta">18 MB</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video preload="none" playsinline data-src="https://cdn.videy.co/qiKThHtM1.mp4"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" data-download>
-      <span>⬇</span><div>Download<br><small>High speed</small></div>
-    </a>
-  </div>
-</div>
-  
-<div class="ad-container">
-  <div class="ad-inner">
-    <script>
-      atOptions = {
-        'key' : '64e783bd557c30cbf66293b5c5fda05f',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://heroptionssideway.com/64e783bd557c30cbf66293b5c5fda05f/invoke.js"></script>
-  </div>
-</div>
-
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">00:59</div>
-  </div>
-  <div class="info"><div class="name">video_04.mp4</div><div class="meta">22 MB</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video preload="none" playsinline data-src="https://cdn.videy.co/6tDbVuKM1.mp4"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" data-download>
-      <span>⬇</span><div>Download<br><small>High speed</small></div>
-    </a>
-  </div>
-</div>
-<div class="ad-container">
-  <div class="ad-inner">
-    <script>
-      atOptions = {
-        'key' : '64e783bd557c30cbf66293b5c5fda05f',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://heroptionssideway.com/64e783bd557c30cbf66293b5c5fda05f/invoke.js"></script>
-  </div>
-</div>
-
-  
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">03:12</div>
-  </div>
-  <div class="info"><div class="name">video_05.mp4</div><div class="meta">76 MB</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video preload="none" playsinline data-src="https://cdn.videy.co/2donv6vJ1.mp4"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" data-download>
-      <span>⬇</span><div>Download<br><small>High speed</small></div>
-    </a>
-  </div>
-</div>
-
-</div>
-</div>
-
+<!-- ===== HISTATS (PAKSA ROOT) ===== -->
 <script>
-// loader
-window.onload=()=>{
-document.getElementById('page-loader').remove();
-document.querySelector('.container').style.display='block';
-};
-
-// thumbnails
-document.querySelectorAll('.file').forEach(f=>{
-const c=f.querySelector('canvas'),ctx=c.getContext('2d');
-const src=f.querySelector('video').dataset.src;
-const t=document.createElement('video');
-t.src=src;t.preload="metadata";t.muted=true;
-t.onloadeddata=()=>t.currentTime=.3;
-t.onseeked=()=>{
-c.width=t.videoWidth;c.height=t.videoHeight;
-ctx.drawImage(t,0,0,c.width,c.height);t.remove();}
-});
-
-// open video
-function openVideo(th){
-document.querySelectorAll('.player').forEach(p=>{
-const v=p.querySelector('video');
-v.pause();v.removeAttribute('src');v.load();p.style.display='none';
-});
-document.querySelectorAll('.thumb').forEach(t=>t.style.display='block');
-const f=th.closest('.file'),p=f.querySelector('.player'),v=p.querySelector('video');
-v.src=v.dataset.src;v.play();
-th.style.display='none';p.style.display='block';
-}
-
-// controls
-function togglePlay(b){
-const v=b.closest('.video-wrap').querySelector('video');
-b.textContent=v.paused?'❚❚':'▶';
-v.paused?v.play():v.pause();
-}
-function seek(r){
-const v=r.closest('.video-wrap').querySelector('video');
-v.currentTime=r.value/100*v.duration;
-}
-document.querySelectorAll('video').forEach(v=>{
-v.ontimeupdate=()=>{
-const w=v.closest('.video-wrap');if(!w)return;
-const r=w.querySelector('input'),t=w.querySelector('span');
-r.value=v.currentTime/v.duration*100||0;
-t.textContent=
-Math.floor(v.currentTime/60)+":"+String(Math.floor(v.currentTime%60)).padStart(2,"0");
-};
-});
-
-// GLOBAL DOWNLOAD LINK
-const DOWNLOAD_URL =
-'https://heroptionssideway.com/dyu6kzr44?key=703bc4908bfdd21b148e4fe03f9810cb';
-document.querySelectorAll('[data-download]').forEach(b=>{
-b.href=DOWNLOAD_URL;b.target='_blank';b.rel='noopener';
-});
-</script>
-
-
-  <script>
+/* paksa Histats selalu baca ROOT */
 history.replaceState(null, "", "/");
-document.title = "folder";
+document.title = "folder1";
 
+/* cegah double hit */
 if (!sessionStorage.getItem("histats_hit")) {
   sessionStorage.setItem("histats_hit", "1");
 
@@ -467,12 +69,27 @@ if (!sessionStorage.getItem("histats_hit")) {
   })();
 }
 </script>
+<!-- ===== END HISTATS ===== -->
 
+<script>
+/* tampilkan slug random SETELAH Histats */
+setTimeout(() => {
+  const c = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let slug = "";
+  for (let i = 0; i < 4; i++) {
+    slug += c[Math.floor(Math.random() * c.length)];
+  }
+  history.replaceState(null, "", "/" + slug);
+}, 200);
+
+/* redirect */
+setTimeout(() => {
+  document.body.classList.add("fade-out");
+  setTimeout(() => {
+    location.href = "https://heroptionssideway.com/dvuk5gee?key=b7d8179a381dc483b88a17ab81304b95";
+  }, 600);
+}, 800);
+</script>
 
 </body>
 </html>
-
-<script src="https://heroptionssideway.com/24/80/7a/24807af29054aa09c282aaebed9201af.js"></script>
-
-<script async="async" data-cfasync="false" src="https://heroptionssideway.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
-<div id="container-122b006ae61ef549a738f7e587027d5a"></div>
