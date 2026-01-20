@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>adultjp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#0b1426;
+  --panel:#0f1e3a;
+  --card:#12244a;
+  --border:#1e3566;
+  --accent:#3b82f6;
+  --text:#e6ecff;
+  --muted:#9fb2ff;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",Meiryo,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+header{
+  background:linear-gradient(180deg,#0f1e3a,#0b1426);
+  border-bottom:1px solid var(--border);
+  padding:12px;
+  text-align:center;
+  font-weight:700;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:12px;
+}
+
+/* MAIN PLAYER */
+.player{
+  position:relative;
+  aspect-ratio:16/9;
+  background:#000;
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.player iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+/* SECTION */
+.section{
+  margin-bottom:28px;
+}
+.section-title{
+  font-size:14px;
+  font-weight:700;
+  color:var(--muted);
+  margin:8px 4px 10px;
+}
+
+/* GRID (STABIL) */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:12px;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.15s;
+}
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px rgba(0,0,0,.35);
+  border-color:var(--accent);
+}
+
+/* THUMB */
+.thumb{
+  aspect-ratio:16/9;
+  background:#000;
+  position:relative;
+}
+.thumb iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  pointer-events:none;
+}
+
+/* TITLE */
+.card p{
+  margin:0;
+  padding:7px 6px;
+  font-size:12px;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* AGE GATE */
+#ageGate{
+  position:fixed;
+  inset:0;
+  background:rgba(3,8,20,.96);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.age-box{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:24px;
+  border-radius:12px;
+  max-width:320px;
+  text-align:center;
+}
+.age-box h2{
+  margin-top:0;
+  font-size:18px;
+}
+.age-box p{
+  font-size:13px;
+  line-height:1.6;
+  color:var(--muted);
+}
+.age-box button{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  font-size:14px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  cursor:pointer;
+}
+.yes{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.no{ background:#1a2b55; color:#c7d2ff; }
+
+footer{
+  margin-top:30px;
+  padding:12px;
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+}
+</style>
+</head>
+
+<body>
+
+<!-- AGE CHECK -->
+<div id="ageGate">
+  <div class="age-box">
+    <h2>🔞 年齢確認</h2>
+    <p>当サイトは18歳以上の方のみご利用いただけます。</p>
+    <button class="yes" onclick="enter()">18歳以上です</button>
+    <button class="no" onclick="exitSite()">18歳未満です</button>
+  </div>
+</div>
+  
+
+<header>動画エンタメ</header>
+
+<div class="container">
+ <script>
+  atOptions = {
+    'key' : 'baa0afb18e2e70c00e4c1406e4824e4b',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://heroptionssideway.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
+
+  <!-- MAIN PLAYER -->
+  <div class="player">
+    <iframe id="mainPlayer" src="https://app.videas.fr/embed/media/ee1c5108-b3b2-40a1-a231-078ddf46bdc5/" allowfullscreen></iframe>
+  </div>
+
+  <!-- GRID 1 -->
+  <div class="section">
+    <div class="section-title">おすすめ動画</div>
+    <div class="grid">
+      <div class="card" onclick="play('https://app.videas.fr/embed/media/bbf27b9e-bb5c-4171-b7dd-b46208acb31b/?autoplay=true')">
+        <div class="thumb"><iframe src="https://app.videas.fr/embed/media/bbf27b9e-bb5c-4171-b7dd-b46208acb31b/"></iframe></div>
+        <p>おすすめ動画 1</p>
+      </div>
+      <div class="card" onclick="play('https://app.videas.fr/embed/media/04ee794d-dc31-4ea0-a21e-0d88eea01e6a/?autoplay=true')">
+        <div class="thumb"><iframe src="https://app.videas.fr/embed/media/04ee794d-dc31-4ea0-a21e-0d88eea01e6a/"></iframe></div>
+        <p>おすすめ動画 2</p>
+      </div>
+      <div class="card" onclick="play('https://app.videas.fr/embed/media/06601e5e-ee42-4a29-8f02-d35efaa7d952/?autoplay=true')">
+        <div class="thumb"><iframe src="https://app.videas.fr/embed/media/06601e5e-ee42-4a29-8f02-d35efaa7d952/"></iframe></div>
+        <p>おすすめ動画 3</p>
+        </div>
+      <div class="card" onclick="play('https://app.videas.fr/embed/media/284e1fcb-5bc3-4c95-86e8-f6ab8153b676/?autoplay=true')">
+        <div class="thumb"><iframe src="https://app.videas.fr/embed/media/284e1fcb-5bc3-4c95-86e8-f6ab8153b676/"></iframe></div>
+        <p>おすすめ動画 4</p>
+        </div>
+      <div class="card" onclick="play('https://app.videas.fr/embed/media/7cec8489-6a86-462b-93e2-3851a4a04bde/?autoplay=true')">
+        <div class="thumb"><iframe src="https://app.videas.fr/embed/media/7cec8489-6a86-462b-93e2-3851a4a04bde/"></iframe></div>
+        <p>おすすめ動画 5</p>
+        </div>
+      <div class="card" onclick="play('https://app.videas.fr/embed/media/e1180964-29e8-4725-9082-d589efeb35a5/?autoplay=true')">
+        <div class="thumb"><iframe src="https://app.videas.fr/embed/media/e1180964-29e8-4725-9082-d589efeb35a5/"></iframe></div>
+        <p>おすすめ動画 6</p>
+      </div>
+    </div>
+  
+  <script async="async" data-cfasync="false" src="https://heroptionssideway.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
+
+<div id="container-122b006ae61ef549a738f7e587027d5a"></div>
+
+ 
+<footer>© 2026 動画エンタメ</footer>
+
+<script>
+function play(url){
+  document.getElementById("mainPlayer").src = url;
+}
+function enter(){
+  localStorage.setItem("age_ok","1");
+  document.getElementById("ageGate").style.display="none";
+}
+function exitSite(){
+  location.href="http://www.video-twimg.click/";
+}
+if(localStorage.getItem("age_ok")==="1"){
+  document.getElementById("ageGate").style.display="none";
+}
+</script>
+    
+     <script type="text/javascript">
+    var _Hasync = _Hasync || [];
+    _Hasync.push(['Histats.start', '1,4978236,4,107,170,20,00010000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+      var hs = document.createElement('script');
+      hs.type = 'text/javascript';
+      hs.async = true;
+      hs.src = ('//s10.histats.com/js15_as.js');
+      (document.head || document.body).appendChild(hs);
+    })();
+  </script>
+
+  <noscript>
+    <a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?4978236&101" alt="Histats"></a>
+  </noscript>
+
+    <script src="https://heroptionssideway.com/24/80/7a/24807af29054aa09c282aaebed9201af.js"></script>
+
+</body>
+</html>
