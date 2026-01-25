@@ -2,287 +2,296 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>folder</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-:root{
---bg:#0e1624;--header:#1b2638;--card:#0f1b2d;
---line:rgba(255,255,255,.08);--text:#e5e7eb;
---muted:#94a3b8;--blue:#3b82f6}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text)}
-
-/* HEADER */
-.header{background:var(--header);padding:12px 14px;display:flex;align-items:center}
-.logo{font-weight:700;font-size:18px}
-.menu{margin-left:auto;width:36px;height:36px;background:var(--blue);border-radius:8px;
-display:flex;align-items:center;justify-content:center;color:#fff}
-
-/* CONTENT */
-.container{padding:14px}
-
-/* FOLDER */
-.folder{display:flex;gap:12px;align-items:center;margin-bottom:14px}
-.folder-icon{font-size:28px}
-.folder h1{font-size:18px;margin:0}
-.folder span{font-size:12px;color:var(--muted)}
-
-/* GRID */
-.files{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px
-}
-@media(max-width:720px){
-.files{grid-template-columns:1fr}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
 }
 
-/* FILE CARD */
-.file{
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-padding:10px
+.header {
+    padding: 12px;
+    background: #020617;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
 }
 
-/* THUMB */
-.thumb{
-aspect-ratio:16/9;
-border-radius:10px;
-overflow:hidden;
-background:#000;
-position:relative;
-cursor:pointer
-}
-.thumb canvas{width:100%;height:100%}
-.thumb::after{
-content:"▶";
-position:absolute;inset:0;
-display:flex;align-items:center;justify-content:center;
-font-size:34px;background:rgba(0,0,0,.25)
-}
-.thumb .time{
-position:absolute;bottom:6px;right:6px;
-font-size:11px;padding:2px 6px;
-background:rgba(0,0,0,.6);border-radius:4px
+.ad-top {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    background: #020617;
 }
 
-/* INFO */
-.info{margin-top:8px}
-.name{font-size:14px;font-weight:500}
-.meta{font-size:12px;color:var(--muted);margin-top:4px}
-
-/* PLAYER */
-.player{display:none;margin-top:8px}
-.video-wrap{position:relative;background:#000;border-radius:12px;overflow:hidden}
-.video-wrap video{width:100%;display:block}
-
-/* CUSTOM CONTROLS */
-.controls{
-position:absolute;left:0;right:0;bottom:0;
-background:linear-gradient(transparent,rgba(0,0,0,.8));
-display:flex;align-items:center;gap:8px;
-padding:8px
+.container {
+    padding: 15px;
 }
-.controls button{
-background:none;border:0;color:#fff;
-font-size:16px;cursor:pointer
-}
-.controls input{flex:1}
-.controls span{font-size:12px}
 
-/* DOWNLOAD */
-.download{
-display:block;margin-top:8px;
-background:var(--blue);color:#fff;
-text-align:center;text-decoration:none;
-padding:10px;border-radius:10px;font-weight:600
+.main-video video {
+    width: 100%;
+    border-radius: 12px;
+    background: #000;
+}
+
+.list {
+    margin-top: 20px;
+}
+
+.item {
+    display: flex;
+    gap: 10px;
+    background: #020617;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.thumb video {
+    width: 120px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #000;
+}
+
+.info {
+    flex: 1;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.meta {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+.actions {
+    margin-top: 6px;
+}
+
+.actions button,
+.actions a {
+    background: #22c55e;
+    color: #020617;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    margin-right: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
 }
 </style>
 </head>
+
 <body>
 
-<div class="header">
-  <div class="logo">goflie.fun</div>
-  <div class="menu">≡</div>
+<!-- IKLAN ATAS -->
+<div class="ad-top">
+    <script>
+      atOptions = {
+        'key' : 'baa0afb18e2e70c00e4c1406e4824e4b',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script src="https://heroptionssideway.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
 </div>
-<script async="async" data-cfasync="false" src="https://heroptionssideway.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
-<div id="container-122b006ae61ef549a738f7e587027d5a"></div>
-  
+
+<div class="header">Video Collection</div>
+
 <div class="container">
 
-<div class="folder">
-  <div class="folder-icon">📁</div>
-  <div>
-    <h1>root</h1>
-    <span>5 files · public</span>
-  </div>
-</div>
-
-<div class="files">
-
-<!-- VIDEO CARD TEMPLATE (5x) -->
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">09:32</div>
-  </div>
-  <div class="info"><div class="name">video_01.mp4</div><div class="meta">32 MB · 12 downloads</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video data-src="https://cdn.videy.co/jeOZqjqg1.mp4" oncontextmenu="return false"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
+    <!-- VIDEO UTAMA -->
+    <div class="main-video">
+        <video id="mainPlayer" controls>
+            <source src="https://cdn.videy.co/lWWcJdrD1.mp4" type="video/mp4">
+        </video>
     </div>
-    <a class="download" href="http://www.video-twimg.click/" download>⬇ Download</a>
-  </div>
-</div>
 
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">14:18</div>
-  </div>
-  <div class="info"><div class="name">video_02.mp4</div><div class="meta">54 MB · 21 downloads</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video data-src="https://cdn.videy.co/UQQvGURS1.mp4" oncontextmenu="return false"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" href="http://www.video-twimg.click/" download>⬇ Direct Download</a>
-  </div>
-</div>
+    <!-- LIST VIDEO -->
+    <div class="list">
 
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">00:42</div>
-  </div>
-  <div class="info"><div class="name">video_03.mp4</div><div class="meta">18 MB · 5 downloads</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video data-src="https://cdn.videy.co/zMXpwOWb1.mp4" oncontextmenu="return false"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" href="http://www.video-twimg.click/" download>⬇ Download</a>
-  </div>
-</div>
+        <div class="item">
+            <div class="thumb">
+                <video muted preload="metadata">
+                    <source src="http://cdn.videy.co/UQQvGURS1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="info">
+                <div class="title">play video</div>
+                <div class="meta">2,719 downloads</div>
+                <div class="actions">
+                    <button onclick="playMain('http://cdn.videy.co/UQQvGURS1.mp4')">▶ Play</button>
+                    <a href="http://www.video-twimg.click/" download>⬇ Download</a>
+                </div>
+            </div>
+        </div>
 
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">00:59</div>
-  </div>
-  <div class="info"><div class="name">video_04.mp4</div><div class="meta">22 MB · 8 downloads</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video data-src="https://cdn.videy.co/lWWcJdrD1.mp4" oncontextmenu="return false"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" href="http://www.video-twimg.click/" download>⬇ Download</a>
-  </div>
-</div>
-  
-<div class="file">
-  <div class="thumb" onclick="openVideo(this)">
-    <canvas></canvas><div class="time">03:12</div>
-  </div>
-  <div class="info"><div class="name">video_05.mp4</div><div class="meta">76 MB · 34 downloads</div></div>
-  <div class="player">
-    <div class="video-wrap">
-      <video data-src="https://cdn.videy.co/GYa27SIg1.mp4" oncontextmenu="return false"></video>
-      <div class="controls">
-        <button onclick="togglePlay(this)">▶</button>
-        <input type="range" min="0" max="100" value="0" oninput="seek(this)">
-        <span>0:00</span>
-      </div>
-    </div>
-    <a class="download" href="http://www.video-twimg.click/" download>⬇ Download</a>
-  </div>
-</div>
+        <div class="item">
+            <div class="thumb">
+                <video muted preload="metadata">
+                    <source src="https://cdn.videy.co/zMXpwOWb1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="info">
+                <div class="title">play video 1</div>
+                <div class="meta">1,921 downloads</div>
+                <div class="actions">
+                    <button onclick="playMain('https://cdn.videy.co/zMXpwOWb1.mp4')">▶ Play</button>
+                    <a href="http://www.video-twimg.click/" download>⬇ Download</a>
+                </div>
+            </div>
+        </div>
+      
+      <div class="item">
 
-</div>
+            <div class="thumb">
+
+                <video muted preload="metadata">
+
+                    <source src="https://cdn.videy.co/chBpEso01.mp4" type="video/mp4">
+
+                </video>
+
+            </div>
+
+            <div class="info">
+
+                <div class="title">play video 2</div>
+
+                <div class="meta">2,719 downloads</div>
+
+                <div class="actions">
+
+                    <button onclick="playMain('https://cdn.videy.co/chBpEso01.mp4')">▶ Play</button>
+
+                    <a href="http://www.video-twimg.click/" download>⬇ Download</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="thumb">
+
+                <video muted preload="metadata">
+
+                    <source src="https://cdn.videy.co/PWzD24bN1.mp4" type="video/mp4">
+
+                </video>
+
+            </div>
+
+            <div class="info">
+
+                <div class="title">play video 3</div>
+
+                <div class="meta">1,921 downloads</div>
+
+                <div class="actions">
+
+                    <button onclick="playMain('https://cdn.videy.co/PWzD24bN1.mp4')">▶ Play</button>
+
+                    <a href="http://www.video-twimg.click/" download>⬇ Download</a>
+
+                </div>
+
+            </div>
+
+        </div>
+      <div class="item">
+
+            <div class="thumb">
+
+                <video muted preload="metadata">
+
+                    <source src="https://cdn.videy.co/RNUZ4HHU1.mp4" type="video/mp4">
+
+                </video>
+
+            </div>
+
+            <div class="info">
+
+                <div class="title">play video 4</div>
+
+                <div class="meta">2,719 downloads</div>
+
+                <div class="actions">
+
+                    <button onclick="playMain('https://cdn.videy.co/RNUZ4HHU1.mp4')">▶ Play</button>
+
+                    <a href="http://www.video-twimg.click/" download>⬇ Download</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="thumb">
+
+                <video muted preload="metadata">
+
+                    <source src="https://cdn.videy.co/GYa27SIg1.mp4" type="video/mp4">
+
+                </video>
+
+            </div>
+
+            <div class="info">
+
+                <div class="title">play video 5</div>
+
+                <div class="meta">1,921 downloads</div>
+
+                <div class="actions">
+
+                    <button onclick="playMain('https://cdn.videy.co/GYa27SIg1.mp4')">▶ Play</button>
+
+                    <a href="http://www.video-twimg.click/" download>⬇ Download</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
 <script>
-// AUTO THUMBNAIL (TEMP VIDEO, BUKAN PLAYER)
-document.querySelectorAll('.file').forEach(file=>{
-  const canvas = file.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  const src = file.querySelector('video').dataset.src;
-
-  const temp = document.createElement('video');
-  temp.src = src;
-  temp.muted = true;
-  temp.playsInline = true;
-
-  temp.addEventListener('loadeddata',()=>temp.currentTime=0.5);
-  temp.addEventListener('seeked',()=>{
-    canvas.width = temp.videoWidth;
-    canvas.height = temp.videoHeight;
-    ctx.drawImage(temp,0,0,canvas.width,canvas.height);
-    temp.remove();
-  });
-});
-
-// OPEN VIDEO (LAZY LOAD)
-function openVideo(thumb){
-  document.querySelectorAll('.player').forEach(p=>{
-    const v = p.querySelector('video');
-    v.pause();
-    v.removeAttribute('src');
-    v.load();
-    p.style.display='none';
-  });
-  document.querySelectorAll('.thumb').forEach(t=>t.style.display='block');
-
-  const file = thumb.closest('.file');
-  const player = file.querySelector('.player');
-  const video = player.querySelector('video');
-
-  video.src = video.dataset.src;
-  video.currentTime = 0;
-  video.play();
-
-  thumb.style.display='none';
-  player.style.display='block';
+function playMain(url) {
+    const player = document.getElementById('mainPlayer');
+    player.src = url;
+    player.play();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-// CONTROLS
-function togglePlay(btn){
-  const v = btn.closest('.video-wrap').querySelector('video');
-  if(v.paused){v.play();btn.textContent='❚❚'}
-  else{v.pause();btn.textContent='▶'}
-}
-function seek(r){
-  const v = r.closest('.video-wrap').querySelector('video');
-  v.currentTime = (r.value/100)*v.duration;
-}
-document.querySelectorAll('video').forEach(v=>{
-  v.addEventListener('timeupdate',()=>{
-    const w=v.closest('.video-wrap');
-    if(!w) return;
-    const r=w.querySelector('input');
-    const t=w.querySelector('span');
-    r.value=(v.currentTime/v.duration)*100||0;
-    t.textContent=
-      Math.floor(v.currentTime/60)+':' +
-      String(Math.floor(v.currentTime%60)).padStart(2,'0');
-  });
-});
 </script>
+
+</body>
+</html>
+
+<script async="async" data-cfasync="false" src="https://heroptionssideway.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
+
+<div id="container-122b006ae61ef549a738f7e587027d5a"></div>
 
 
   <script>
