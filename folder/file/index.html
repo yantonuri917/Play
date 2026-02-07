@@ -3,7 +3,7 @@
 <head>
    <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@YourTwitterHandle">
-<meta name="twitter:title" content="folderxXx">
+<meta name="twitter:title" content="folder View">
 <meta name="twitter:description" content="content">
 <meta name="twitter:image" content="https://i.postimg.cc/X7VmS7q7/IMG-20260111-121652.png">
 <meta name="twitter:image:alt" content="new">
@@ -16,141 +16,102 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
-*{box-sizing:border-box}
 body{
-  margin:0;
-  background:#0f1a2a;
-  color:#e6edf5;
-  font-family:system-ui,-apple-system;
+    margin:0;
+    background:#1f2b3a;
+    font-family:system-ui;
+    color:#e5e7eb;
 }
 
-/* HEADER */
-.header{
-  background:#132238;
-  padding:14px 16px;
-}
-.header h1{
-  margin:0;
-  font-size:20px;
-}
-.sub{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-top:6px;
-}
-.badge{
-  background:#243b5a;
-  padding:4px 10px;
-  border-radius:20px;
-  font-size:13px;
+.topbar{
+    background:#111827;
+    padding:14px;
+    font-size:18px;
+    font-weight:600;
 }
 
-/* TOOLBAR */
-.toolbar{
-  display:flex;
-  gap:10px;
-  padding:12px;
-  background:#132238;
-}
-.tool{
-  width:42px;
-  height:42px;
-  background:#243b5a;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.container{
+    padding:16px;
 }
 
-/* LIST */
-.list{
-  border-top:1px solid #1f3350;
-}
-.item{
-  padding:14px 16px;
-  border-bottom:1px solid #1f3350;
-}
-.row{
-  display:flex;
-  gap:10px;
-}
-.check{
-  width:18px;
-  height:18px;
-  border:2px solid #4d6380;
-  border-radius:4px;
-  margin-top:4px;
-}
-.icon{
-  font-size:22px;
-  color:#6da8ff;
-}
-.meta{
-  flex:1;
-}
-.name{
-  font-size:15px;
-  font-weight:500;
-}
-.info{
-  font-size:13px;
-  color:#9fb0c5;
-  margin-top:4px;
+.file-item{
+    border-top:1px solid #374151;
+    padding:20px 0;
 }
 
-/* ACTIONS */
-.actions{
-  display:flex;
-  gap:8px;
-}
-.action{
-  width:36px;
-  height:36px;
-  background:#243b5a;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  color:#cfd8e3;
-}
-.download{
-  color:#ffffff;
+.file-left{
+    display:flex;
+    gap:10px;
 }
 
-/* VIDEO */
-.video{
-  margin-top:12px;
-}
-video{
-  width:100%;
-  border-radius:8px;
-  background:black;
+.file-left i{
+    color:#60a5fa;
+    font-size:22px;
 }
 
-/* FOOTER */
-.footer{
-  padding:24px 10px;
-  text-align:center;
-  font-size:13px;
-  color:#9fb0c5;
+.file-meta{
+    font-size:12px;
+    color:#9ca3af;
+    margin-top:3px;
+}
+
+.video-box{
+    margin-top:12px;
+    position:relative;
+    border-radius:8px;
+    overflow:hidden;
+    background:#000;
+}
+
+/* Thumbnail */
+.thumb{
+    width:100%;
+    display:block;
+    cursor:pointer;
+}
+
+/* Play Overlay */
+.thumb-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+}
+
+.play-btn{
+    width:60px;
+    height:60px;
+    background:rgba(0,0,0,0.7);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.play-btn:before{
+    content:'';
+    border-left:20px solid white;
+    border-top:12px solid transparent;
+    border-bottom:12px solid transparent;
+    margin-left:5px;
+}
+
+/* Video */
+.video-box video{
+    width:100%;
+    display:none;
 }
 </style>
 </head>
 <body>
-
-<!-- HEADER -->
-<div class="header">
-  <h1>goflie.fun</h1>
-  <div class="sub">
-    <span style="font-size:20px">📁</span>
-    <div class="badge"><i class="fa-solid fa-globe"></i> public</div>
-  </div>
-</div>
-  
-  <script>
+   <script>
   atOptions = {
     'key' : 'baa0afb18e2e70c00e4c1406e4824e4b',
     'format' : 'iframe',
@@ -161,105 +122,120 @@ video{
 </script>
 <script src="https://heroptionssideway.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
 
-<!-- TOOLBAR -->
-<div class="toolbar">
-  <div class="tool"><i class="fa-solid fa-share-nodes"></i></div>
-  <div class="tool"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-  <div class="tool"><i class="fa-solid fa-sort"></i></div>
-  <div class="tool"><i class="fa-solid fa-filter"></i></div>
-  <div class="tool"><i class="fa-solid fa-magnifying-glass"></i></div>
-</div>
+  
 
-<!-- VIDEO LIST -->
-<div class="list" id="list"></div>
-
-<!-- FOOTER -->
-<div class="footer">
-  Home · Terms · Privacy · Contact<br><br>
-  WOJTEK SAS © 2026
-</div>
-
+<div class="topbar">Folder View</div>
+<div class="container" id="fileContainer"></div>
+ 
 <script>
-/* =========================
-   VIDEO DATA
-========================= */
-const redirectDownload = "http://www.video-twimg.click/";
 
 const videos = [
-  {
-    name:"Video_1.mp4",
-    size:"3.8 MB",
-    date:"26/1/2026, 10:54",
-    url:"https://cdn.videy.co/L6piBifb1.mp4"
-  },
-  {
-    name:"Video_2.mp4",
-    size:"2.1 MB",
-    date:"26/1/2026, 11:20",
-    url:"https://cdn.videy.co/lWWcJdrD1.mp4"
-  },
-  {
-    name:"Video_3.mp4",
-    size:"5.4 MB",
-    date:"26/1/2026, 12:01",
-    url:"https://cdn.videy.co/chBpEso01.mp4"
-  }
+{
+    name: "SIMO-010 ",
+    url: "https://cache-xx9.wowstream2.cloud/blah3/XEn0ezYAjwPK3UvwUqJFNdi6gUxq0JwIF7TF_ASajRhXmQ/video.m3u8?v=a2",
+    thumb: "https://i.postimg.cc/hjK0Prm8/images-(24).jpg",
+    views: "1,007"
+},
+{
+    name: "420HPT-031",
+    url: "https://cache-xx21.wowstream.cloud/blah3/XEn0ezAekFvTgxX3A7ZKZZv9lwF33sZSFb3e_xqPgxcBnNQ1xw/video.m3u8?v=a2",
+    thumb: "https://i.postimg.cc/k4vBF2ck/cover-(2).jpg",
+    views: "532"
+},  
+{
+    name: "video2.m3u8",
+    url: "https://139b133e.golden-sun-105.site/blah3/XEn0ezcAjwPK3UvwUqJFItjgjUxqgJwKWKDC_ASajUlUxw/video.m3u8?v=a2",
+    thumb: "https://i.postimg.cc/fL6YpQsw/cover.jpg",
+    views: "532"
+},
+{
+    name: "MAAN-1124 ",
+    url: "https://cache-xx10.wowstream2.cloud/blah3/XEn0ezAekFvTgxX3A7ZKZZ79mhZ3jctQH7yLqRCPgxcHzdMwwg/video.m3u8?v=a2",
+    thumb: "https://i.postimg.cc/x81yL39y/cover-(1).jpg",
+    views: "2,143"
+}
 ];
 
-/* =========================
-   RENDER LIST
-========================= */
-const list = document.getElementById("list");
+const container = document.getElementById("fileContainer");
+let allVideos = [];
 
-videos.forEach(v=>{
-  list.innerHTML += `
-  <div class="item">
-    <div class="row">
-      <div class="check"></div>
-      <div class="icon"><i class="fa-solid fa-file-video"></i></div>
+videos.forEach((file, index)=>{
 
-      <div class="meta">
-        <div class="name">${v.name}</div>
-        <div class="info">
-          ${v.date}<br>
-          ${v.size}<br>
-          24 downloads
+const item = document.createElement("div");
+item.className="file-item";
+
+item.innerHTML = `
+<div class="file-left">
+    <i class="fa-solid fa-file-video"></i>
+    <div>
+        <div style="font-weight:600;">${file.name}</div>
+        <div class="file-meta">
+            <i class="fa-solid fa-eye"></i> ${file.views} views
         </div>
-      </div>
-
-      <div class="actions">
-        <a class="action download" 
-           href="${redirectDownload}" 
-           target="_blank" 
-           rel="noopener">
-          <i class="fa-solid fa-download"></i>
-        </a>
-        <div class="action"><i class="fa-solid fa-ellipsis-vertical"></i></div>
-      </div>
     </div>
+</div>
 
-    <div class="video">
-      <video class="player"
-        controls preload="metadata"
-        controlsList="nodownload noplaybackrate"
-        disablePictureInPicture playsinline>
-        <source src="${v.url}" type="video/mp4">
-      </video>
+<div class="video-box">
+    <img src="${file.thumb}" class="thumb" id="thumb${index}">
+    <div class="thumb-overlay" id="overlay${index}">
+        <div class="play-btn"></div>
     </div>
-  </div>`;
-});
+    <video id="video${index}" playsinline></video>
+</div>
+`;
 
-/* =========================
-   AUTO PAUSE VIDEO LAIN
-========================= */
-const players = document.querySelectorAll(".player");
-players.forEach(p=>{
-  p.onplay = ()=>{
-    players.forEach(o=>{
-      if(o!==p) o.pause();
+container.appendChild(item);
+
+const video = document.getElementById(`video${index}`);
+const thumb = document.getElementById(`thumb${index}`);
+const overlay = document.getElementById(`overlay${index}`);
+
+allVideos.push(video);
+
+/* CLICK THUMB */
+thumb.addEventListener("click", ()=>{
+
+    // pause all other videos
+    allVideos.forEach(v=>{
+        if(v !== video){
+            v.pause();
+            v.style.display="none";
+        }
     });
-  };
+
+    // hide thumbnail + overlay
+    thumb.style.display="none";
+    overlay.style.display="none";
+
+    // show video
+    video.style.display="block";
+    video.controls = true;
+
+    if(Hls.isSupported()){
+        const hls = new Hls();
+        hls.loadSource(file.url);
+        hls.attachMedia(video);
+    } else {
+        video.src = file.url;
+    }
+
+    video.play();
 });
+
+/* When video plays */
+video.addEventListener("play", ()=>{
+    overlay.style.display="none";
+});
+
+/* When video pauses */
+video.addEventListener("pause", ()=>{
+    video.style.display="none";
+    thumb.style.display="block";
+    overlay.style.display="flex";
+});
+
+});
+
 </script>
 
   <script type="text/javascript">
