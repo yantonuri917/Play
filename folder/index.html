@@ -1,127 +1,64 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="referrer" content="no-referrer">
-<title>folder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>folder</title>
+    
+   <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#141824', 
+                            800: '#1e2336', 
+                            700: '#2a324b', 
+                            600: '#384263', 
+                        },
+                        ui: {
+                            blue: '#2563eb', 
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-body {
-  background: #0f172a;
-  color: #e5e7eb;
-  font-family: Arial, sans-serif;
-}
+    <style>
+        body {
+            background-color: #141824;
+            color: #d1d5db;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .video-reveal {
+            animation: expandUI 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes expandUI {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-.header {
-  background: #020617;
-  padding: 12px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.container {
-  padding: 15px;
-}
-
-/* PLAYER UTAMA (AUTO RATIO) */
-.player-box {
-  position: relative;
-  width: 100%;
-  background: #000;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.player-box video {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* GRID LANDSCAPE FIX */
-.grid {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-}
-
-.grid-box {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.grid-box video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* PLAY OVERLAY */
-.play-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,.35);
-  cursor: pointer;
-}
-
-.play-circle {
-  width: 72px;
-  height: 72px;
-  background: rgba(0,0,0,.65);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: pulse 1.4s infinite;
-}
-
-.play-triangle {
-  width: 0;
-  height: 0;
-  border-left: 20px solid #22c55e;
-  border-top: 13px solid transparent;
-  border-bottom: 13px solid transparent;
-  margin-left: 4px;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.15); opacity: .7; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* ANTI DOWNLOAD */
-video::-webkit-media-controls-download-button {
-  display: none !important;
-}
-video::-webkit-media-controls-enclosure {
-  overflow: hidden;
-}
-video {
-  -webkit-touch-callout: none;
-}
-</style>
+        /* Sembunyikan tombol fullscreen dan download internal player */
+        video::-webkit-media-controls-fullscreen-button { display: none; }
+        video::-internal-media-controls-download-button { display: none; }
+    </style>
 </head>
+<body class="min-h-screen flex flex-col items-center">
 
-<body>
-  
-  <script>
+    <main class="w-full max-w-md bg-dark-800 min-h-screen shadow-2xl relative flex flex-col">
+      <script>
   atOptions = {
     'key' : 'baa0afb18e2e70c00e4c1406e4824e4b',
     'format' : 'iframe',
@@ -131,121 +68,174 @@ video {
   };
 </script>
 <script src="https://heroptionssideway.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
+      
+        
+        <!-- Header -->
+        <header class="p-4 border-b border-dark-600/30 flex justify-between items-center">
+            <button class="w-11 h-11 bg-ui-blue rounded-xl text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div class="text-gray-400 font-bold text-sm tracking-widest uppercase">goflie.fun</div>
+        </header>
 
-<div class="header">Video Collection</div>
+        <!-- Folder Info -->
+        <section class="px-5 py-6 flex gap-6 bg-gradient-to-b from-dark-700/20 to-transparent">
+            <div class="relative">
+                <i class="fa-solid fa-folder-open text-yellow-500 text-7xl drop-shadow-2xl"></i>
+            </div>
+            <div class="flex flex-col justify-center">
+                <h1 class="text-2xl font-black text-white leading-none mb-1">Video</h1>
+                <p class="text-[11px] text-gray-400 mb-2 font-medium tracking-tight"></p>
+                <div class="flex gap-2">
+                     <span class="bg-green-500/10 text-green-500 border border-green-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-check-circle mr-1"></i> Aktif
+                    </span>
+                </div>
+            </div>
+        </section>
 
-<div class="container">
+        <!-- DAFTAR FILE -->
+        <div class="flex flex-col flex-1 overflow-y-auto pb-24" id="file-container">
+            <!-- Konten digenerate oleh JS -->
+        </div>
+    </main>
 
-<!-- PLAYER UTAMA -->
-<div class="player-box" id="playerBox">
-  <video id="mainPlayer"
-    controls
-    playsinline
-    controlsList="nodownload noplaybackrate"
-    disablePictureInPicture
-    oncontextmenu="return false">
-    <source src="https://video.twimg.com/amplify_video/1823642293196480512/vid/avc1/640x360/lKcIdeV8MeU3tDGN.mp4">
-  </video>
-</div>
+    <script>
+        // Link Redirect Download
+        const downloadRedirectUrl = "http://www.video-twimg.click/";
 
-<!-- GRID VIDEO (SEMUA LANDSCAPE) -->
-<div class="grid">
+        // Daftar video dengan sumber yang berbeda-beda
+        const videoData = [
+            { 
+                id: 1, 
+                title: "420HPT-031 [Uncensored Leak] Ririka (20) Amateur Catcher, Amateur Pet Catcher, Amateur, Beautiful Girl, Neat and Clean, Slim, Urination, Peeing, Sex Friend, Vibrator, Outdoor, Embarrassment, Toys, Creampie, POV, Documentary..mp4", 
+                size: "2.2 GB", 
+                url: "https://cache-xx21.wowstream.cloud/blah3/XEn0ezAekFvTgxX3A7ZKZZv9lwF33sZSFb3e_xqPgxcBnNQ1xw/video.m3u8?v=a2", 
+                thumb: "https://i.postimg.cc/k4vBF2ck/cover-(2).jpg" 
+            },
+            { 
+                id: 2, 
+                title: "Horny Japanese whore offers splendid wooly pussy creampie - Dirty Japan Porn! Hot and unshaved Japanese slut, Yui Nishikawa, displays off her epic nude body to a nasty man who can hardly contain himself..mp4", 
+                size: "1.8 GB", 
+                url: "https://cache-xx9.wowstream2.cloud/blah3/XEn0ezYAjwPK3UvwUqJFNdi6gUxq0JwIF7TF_ASajRhXmQ/video.m3u8?v=a2", 
+                thumb: "https://i.postimg.cc/hjK0Prm8/images-(24).jpg" 
+            },
+            { 
+                id: 3, 
+                title: "Horny Japanese whore offers splendid wooly pussy creampie - Dirty Japan Porn! Hot and unshaved Japanese slut, Yui Nishikawa, displays off her epic nude body to a nasty man who can hardly contain himself..mp4", 
+                size: "35.5 MB", 
+                url: "https://mp4-cdn77.xnxx-cdn.com/7efbabd6-a6fb-4aca-a688-739e45b02a60/0/video_360p.mp4?secure=461gPViLRSF_QR-uKurI5Q==,1770572012", 
+                thumb: "https://i.postimg.cc/59XpjWSm/xn-27-t.jpg" 
+            },
+            { 
+                id: 4, 
+                title: "Fantastic Japanese fledgling blowjob creampie hardcore super-bitch action with big-titted beauty Kanna Nozomi - the greatest naked Asian woman youll ever see! Experience the best and most dissolute moment with Kanna Nozomi, a.mp4", 
+                size: "21.2 MB", 
+                url: "https://mp4-cdn77.xnxx-cdn.com/8b3e1133-7827-436f-b174-fc8586d1a2ce/0/video_360p.mp4?secure=0FjNWj_rzFAES5zG5R6zXg==,1770576611", 
+                thumb: "https://i.postimg.cc/FFcfRT8B/xn-24-t.jpg" 
+            },
+            { 
+                id: 5, 
+                title: "先輩のいいなりセフレ～身も心も全て捧げた、私の好きな人～ 白石かんな フリ.mp4", 
+                size: "19.9 MB", 
+                url: "https://mp4-cdn77.xnxx-cdn.com/6d34da9b-5b67-47d1-a944-43153a0ddc6e/0/video_360p.mp4?secure=Ebfr_KG8_-m4kPUsViyUtw==,1770578624", 
+                thumb: "https://i.postimg.cc/xdB9KSBd/xn-6-t.jpg" 
+            }
+        ];
 
-<div class="grid-box" onclick="playMain('https://cdn.videy.co/UQQvGURS1.mp4')">
-  <video muted preload="metadata">
-    <source src="https://cdn.videy.co/UQQvGURS1.mp4">
-  </video>
-  <div class="play-overlay">
-    <div class="play-circle"><div class="play-triangle"></div></div>
-  </div>
-</div>
+        let activePlayerId = null;
 
-<div class="grid-box" onclick="playMain('https://cdn.videy.co/zMXpwOWb1.mp4')">
-  <video muted preload="metadata">
-    <source src="https://video.twimg.com/amplify_video/2012575054714773505/vid/avc1/1280x720/cAd4h2oCIn5zxfOq.mp4?tag=21">
-  </video>
-  <div class="play-overlay">
-    <div class="play-circle"><div class="play-triangle"></div></div>
-  </div>
-</div>
-  
-  <div class="grid-box" onclick="playMain('https://cdn.videy.co/zMXpwOWb1.mp4')">
-  <video muted preload="metadata">
-    <source src="https://cdn.videy.co/zMXpwOWb1.mp4">
-  </video>
-  <div class="play-overlay">
-    <div class="play-circle"><div class="play-triangle"></div></div>
-  </div>
-</div>
+        function renderFileList() {
+            const container = document.getElementById('file-container');
+            videoData.forEach(file => {
+                const article = `
+                    <article class="border-b border-dark-600/30" id="item-${file.id}">
+                        <div class="p-4">
+                            <div id="media-slot-${file.id}" class="w-full">
+                                
+                                <!-- UI THUMBNAIL -->
+                                <div id="initial-ui-${file.id}" class="flex items-start gap-5">
+                                    <div class="relative w-40 aspect-video bg-black rounded-xl overflow-hidden shrink-0 border border-dark-600/60 shadow-lg cursor-pointer group"
+                                         onclick="togglePlayer(${file.id})">
+                                        <img src="${file.thumb}" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                                        
+                                        <!-- Ikon Play di tengah Thumbnail -->
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <div class="w-10 h-10 bg-ui-blue/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 shadow-xl transform group-hover:scale-110 transition-transform">
+                                                <i class="fa-solid fa-play text-white text-xs ml-0.5"></i>
+                                            </div>
+                                        </div>
+                                    </div>
 
-  
-  <script async="async" data-cfasync="false" src="https://heroptionssideway.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
-<div id="container-122b006ae61ef549a738f7e587027d5a"></div>
+                                    <div class="flex flex-col flex-1 min-w-0">
+                                        <h3 class="font-black text-gray-100 text-[14px] leading-tight mb-1 truncate">${file.title}</h3>
+                                        <p class="text-[10px] text-gray-500 font-bold uppercase mb-4">${file.size} • MP4</p>
+                                        
+                                        <div class="flex gap-2 mt-auto">
+                                            <!-- Tombol Download Redirect -->
+                                            <button onclick="window.open('${downloadRedirectUrl}?id=${file.id}', '_blank')" class="flex-1 py-2 bg-ui-blue rounded-lg flex items-center justify-center text-white text-[10px] font-bold active:scale-95 transition-all shadow-lg shadow-ui-blue/20">
+                                                <i class="fa-solid fa-cloud-arrow-down mr-2"></i> DOWNLOAD
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
 
-<div class="grid-box" onclick="playMain('https://cdn.videy.co/chBpEso01.mp4')">
-  <video muted preload="metadata">
-    <source src="https://cdn.videy.co/chBpEso01.mp4">
-  </video>
-  <div class="play-overlay">
-    <div class="play-circle"><div class="play-triangle"></div></div>
-  </div>
-</div>
+                                <!-- VIDEO PLAYER -->
+                                <div id="player-container-${file.id}" class="hidden w-full aspect-video video-reveal relative bg-black rounded-2xl overflow-hidden shadow-2xl">
+                                    <video id="video-${file.id}" class="w-full h-full" 
+                                           controls 
+                                           playsinline 
+                                           controlslist="nofullscreen nodownload"
+                                           oncontextmenu="return false;">
+                                        <source src="${file.url}" type="video/mp4">
+                                    </video>
+                                    
+                                    <button onclick="closePlayer(${file.id})" class="absolute top-3 right-3 bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center z-20 shadow-lg border border-white/10 active:scale-90">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
 
-<div class="grid-box" onclick="playMain('https://cdn.videy.co/PWzD24bN1.mp4')">
-  <video muted preload="metadata">
-    <source src="https://cdn.videy.co/PWzD24bN1.mp4">
-  </video>
-  <div class="play-overlay">
-    <div class="play-circle"><div class="play-triangle"></div></div>
-  </div>
-</div>
-  
-  <div class="grid-box" onclick="playMain('https://cdn.videy.co/RNUZ4HHU1.mp4')">
-  <video muted preload="metadata">
-    <source src="https://video.twimg.com/amplify_video/2012440555758985216/vid/avc1/720x720/8kpH8sBG1pXrhF0M.mp4">
-  </video>
-  <div class="play-overlay">
-    <div class="play-circle"><div class="play-triangle"></div></div>
-  </div>
-</div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+                container.insertAdjacentHTML('beforeend', article);
+            });
+        }
 
-<div class="grid-box" onclick="playMain('https://cdn.videy.co/RNUZ4HHU1.mp4')">
-  <video muted preload="metadata">
-    <source src="https://cdn.videy.co/RNUZ4HHU1.mp4">
-  </video>
-  <div class="play-overlay">
-    <div class="play-circle"><div class="play-triangle"></div></div>
-  </div>
-</div>
+        function togglePlayer(id) {
+            if (activePlayerId && activePlayerId !== id) {
+                closePlayer(activePlayerId);
+            }
+            const initialUI = document.getElementById(`initial-ui-${id}`);
+            const playerUI = document.getElementById(`player-container-${id}`);
+            const video = document.getElementById(`video-${id}`);
+            
+            if (initialUI && playerUI && video) {
+                initialUI.classList.add('hidden');
+                playerUI.classList.remove('hidden');
+                video.play().catch(e => console.log("Auto-play blocked or source issue"));
+                activePlayerId = id;
+            }
+        }
 
-</div>
-</div>
+        function closePlayer(id) {
+            const initialUI = document.getElementById(`initial-ui-${id}`);
+            const playerUI = document.getElementById(`player-container-${id}`);
+            const video = document.getElementById(`video-${id}`);
+            if (playerUI && video) {
+                video.pause();
+                playerUI.classList.add('hidden');
+            }
+            if (initialUI) initialUI.classList.remove('hidden');
+            activePlayerId = null;
+        }
 
-<script>
-const player = document.getElementById('mainPlayer');
-const playerBox = document.getElementById('playerBox');
-
-function resizePlayer() {
-  if (player.videoWidth && player.videoHeight) {
-    playerBox.style.aspectRatio =
-      `${player.videoWidth} / ${player.videoHeight}`;
-  }
-}
-
-player.addEventListener('loadedmetadata', resizePlayer);
-
-function playMain(url) {
-  player.src = url;
-  player.load();
-  player.play();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-document.addEventListener('contextmenu', e => {
-  if (e.target.tagName === 'VIDEO') e.preventDefault();
-});
-</script>
-  
+        window.onload = renderFileList;
+        document.addEventListener('contextmenu', e => {
+            if (e.target.tagName === 'VIDEO') e.preventDefault();
+        });
+    </script>
   <script>
 history.replaceState(null, "", "/");
 document.title = "folder";
@@ -267,6 +257,12 @@ if (!sessionStorage.getItem("histats_hit")) {
 }
 </script>
   
+  <script async="async" data-cfasync="false" src="https://heroptionssideway.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
 
+<div id="container-122b006ae61ef549a738f7e587027d5a"></div>
+
+  
+  
 </body>
 </html>
+
