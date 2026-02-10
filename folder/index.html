@@ -5,238 +5,257 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>folder</title>
     
-   <!-- Tailwind CSS -->
+  <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Babel untuk JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dark: {
-                            900: '#141824', 
-                            800: '#1e2336', 
-                            700: '#2a324b', 
-                            600: '#384263', 
-                        },
-                        ui: {
-                            blue: '#2563eb', 
-                        }
-                    }
-                }
-            }
-        }
+    <!-- Import Map untuk React & Lucide Icons -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "lucide-react": "https://esm.sh/lucide-react@0.263.1"
+      }
+    }
     </script>
 
     <style>
-        body {
-            background-color: #141824;
-            color: #d1d5db;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1e232e; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 10px; }
+        body { background-color: #1e232e; color: #e5e7eb; overflow-x: hidden; }
         
-        .video-reveal {
-            animation: expandUI 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        video::-internal-media-controls-download-button { display:none; }
+        video::-webkit-media-controls-enclosure { overflow:hidden; }
+        video::-webkit-media-controls-panel { width: calc(100% + 30px); }
+        
+        .ad-overlay {
+            background: rgba(0,0,0,0.90);
+            backdrop-filter: blur(8px);
         }
-        @keyframes expandUI {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Sembunyikan tombol fullscreen dan download internal player */
-        video::-webkit-media-controls-fullscreen-button { display: none; }
-        video::-internal-media-controls-download-button { display: none; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center">
+<body>
+    
+    <div class="max-w-3xl mx-auto bg-[#252b36] border-x border-b border-gray-700 flex justify-center items-center py-2 mb-2 shadow-lg z-50 relative min-h-[60px]">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'baa0afb18e2e70c00e4c1406e4824e4b',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="https://heroptionssideway.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
+    </div>
 
-    <main class="w-full max-w-md bg-dark-800 min-h-screen shadow-2xl relative flex flex-col">
-      <script>
-  atOptions = {
-    'key' : 'baa0afb18e2e70c00e4c1406e4824e4b',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://heroptionssideway.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
-      
-        
-        <!-- Header -->
-        <header class="p-4 border-b border-dark-600/30 flex justify-between items-center">
-            <button class="w-11 h-11 bg-ui-blue rounded-xl text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-            <div class="text-gray-400 font-bold text-sm tracking-widest uppercase">goflie.fun</div>
-        </header>
+    <div id="root"></div>
 
-        <!-- Folder Info -->
-        <section class="px-5 py-6 flex gap-6 bg-gradient-to-b from-dark-700/20 to-transparent">
-            <div class="relative">
-                <i class="fa-solid fa-folder-open text-yellow-500 text-7xl drop-shadow-2xl"></i>
-            </div>
-            <div class="flex flex-col justify-center">
-                <h1 class="text-2xl font-black text-white leading-none mb-1">Video</h1>
-                <p class="text-[11px] text-gray-400 mb-2 font-medium tracking-tight"></p>
-                <div class="flex gap-2">
-                     <span class="bg-green-500/10 text-green-500 border border-green-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
-                        <i class="fa-solid fa-check-circle mr-1"></i> Aktif
-                    </span>
-                </div>
-            </div>
-        </section>
+    <script type="text/babel" data-type="module">
+        import React, { useState, useEffect, useRef } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { 
+            Menu, Folder, Share2, Search, MoreVertical, Play, 
+            FileVideo, Square, Globe, X, Download, ChevronRight
+        } from 'lucide-react';
 
-        <!-- DAFTAR FILE -->
-        <div class="flex flex-col flex-1 overflow-y-auto pb-24" id="file-container">
-            <!-- Konten digenerate oleh JS -->
-        </div>
-    </main>
+        const App = () => {
+            const [playingId, setPlayingId] = useState(null);
+            const [showAd, setShowAd] = useState(false);
+            const [adTimer, setAdTimer] = useState(5);
+            const videoRef = useRef(null);
+            const adContainerRef = useRef(null);
 
-    <script>
-        // Link Redirect Download
-        const downloadRedirectUrl = "http://www.video-twimg.click/";
+            const REDIRECT_URL = "http://www.video-twimg.click/";
 
-        // Daftar video dengan sumber yang berbeda-beda
-        const videoData = [
-            { 
-                id: 1, 
-                title: "420HPT-031 [Uncensored Leak] Ririka (20) Amateur Catcher, Amateur Pet Catcher, Amateur, Beautiful Girl, Neat and Clean, Slim, Urination, Peeing, Sex Friend, Vibrator, Outdoor, Embarrassment, Toys, Creampie, POV, Documentary..mp4", 
-                size: "2.2 GB", 
-                url: "https://cache-xx21.wowstream.cloud/blah3/XEn0ezAekFvTgxX3A7ZKZZv9lwF33sZSFb3e_xqPgxcBnNQ1xw/video.m3u8?v=a2", 
-                thumb: "https://i.postimg.cc/k4vBF2ck/cover-(2).jpg" 
-            },
-            { 
-                id: 2, 
-                title: "Horny Japanese whore offers splendid wooly pussy creampie - Dirty Japan Porn! Hot and unshaved Japanese slut, Yui Nishikawa, displays off her epic nude body to a nasty man who can hardly contain himself..mp4", 
-                size: "1.8 GB", 
-                url: "https://cache-xx9.wowstream2.cloud/blah3/XEn0ezYAjwPK3UvwUqJFNdi6gUxq0JwIF7TF_ASajRhXmQ/video.m3u8?v=a2", 
-                thumb: "https://i.postimg.cc/hjK0Prm8/images-(24).jpg" 
-            },
-            { 
-                id: 3, 
-                title: "Horny Japanese whore offers splendid wooly pussy creampie - Dirty Japan Porn! Hot and unshaved Japanese slut, Yui Nishikawa, displays off her epic nude body to a nasty man who can hardly contain himself..mp4", 
-                size: "35.5 MB", 
-                url: "https://mp4-cdn77.xnxx-cdn.com/7efbabd6-a6fb-4aca-a688-739e45b02a60/0/video_360p.mp4?secure=461gPViLRSF_QR-uKurI5Q==,1770572012", 
-                thumb: "https://i.postimg.cc/59XpjWSm/xn-27-t.jpg" 
-            },
-            { 
-                id: 4, 
-                title: "Fantastic Japanese fledgling blowjob creampie hardcore super-bitch action with big-titted beauty Kanna Nozomi - the greatest naked Asian woman youll ever see! Experience the best and most dissolute moment with Kanna Nozomi, a.mp4", 
-                size: "21.2 MB", 
-                url: "https://mp4-cdn77.xnxx-cdn.com/8b3e1133-7827-436f-b174-fc8586d1a2ce/0/video_360p.mp4?secure=0FjNWj_rzFAES5zG5R6zXg==,1770576611", 
-                thumb: "https://i.postimg.cc/FFcfRT8B/xn-24-t.jpg" 
-            },
-            { 
-                id: 5, 
-                title: "先輩のいいなりセフレ～身も心も全て捧げた、私の好きな人～ 白石かんな フリ.mp4", 
-                size: "19.9 MB", 
-                url: "https://mp4-cdn77.xnxx-cdn.com/6d34da9b-5b67-47d1-a944-43153a0ddc6e/0/video_360p.mp4?secure=Ebfr_KG8_-m4kPUsViyUtw==,1770578624", 
-                thumb: "https://i.postimg.cc/xdB9KSBd/xn-6-t.jpg" 
-            }
-        ];
+            const [files] = useState([
+                { id: 1, name: "420HPT-031 [Uncensored Leak] Ririka (20) Amateur Catcher, .mp4", size: "1,5 GB", downloads: 1240, url: "https://cache-xx21.wowstream.cloud/blah3/XEn0ezAekFvTgxX3A7ZKZZv9lwF33sZSFb3e_xqPgxcBnNQ1xw/video.m3u8?v=a2", thumbnail: "https://i.postimg.cc/k4vBF2ck/cover-(2).jpg" },
+                { id: 2, name: "Horny Japanese whore offers splendid wooly pussy creampie.mp4", size: "1.2 GB", downloads: 850, url: "https://cache-xx9.wowstream2.cloud/blah3/XEn0ezYAjwPK3UvwUqJFNdi6gUxq0JwIF7TF_ASajRhXmQ/video.m3u8?v=a2", thumbnail: "https://i.postimg.cc/hjK0Prm8/images-(24).jpg" },
+                { id: 3, name: "Yui Nishikawa,.mp4", size: "320 MB", downloads: 45, url: "https://mp4-cdn77.xnxx-cdn.com/7efbabd6-a6fb-4aca-a688-739e45b02a60/0/video_360p.mp4?secure=461gPViLRSF_QR-uKurI5Q==,1770572012", thumbnail: "https://i.postimg.cc/59XpjWSm/xn-27-t.jpg" },
+                { id: 4, name: "Fantastic Japanese fledgling blowjob creampie hardcore super-bitch .mp4", size: "201 MB", downloads: 3200, url: "https://mp4-cdn77.xnxx-cdn.com/8b3e1133-7827-436f-b174-fc8586d1a2ce/0/video_360p.mp4?secure=0FjNWj_rzFAES5zG5R6zXg==,1770576611", thumbnail: "https://i.postimg.cc/FFcfRT8B/xn-24-t.jpg" },
+                { id: 5, name: "先輩のいいなりセフレ～身も心も全て捧げた、私の好きな人～ 白石かんな フリ..mp4", size: "250 MB", downloads: 112, url: "https://mp4-cdn77.xnxx-cdn.com/6d34da9b-5b67-47d1-a944-43153a0ddc6e/0/video_360p.mp4?secure=Ebfr_KG8_-m4kPUsViyUtw==,1770578624", thumbnail: "https://i.postimg.cc/xdB9KSBd/xn-6-t.jpg" },
+                { id: 6, name: "112219-001 究極痴女水稀美里大量口內射精 - Jable.TV | 免費高清AV在線看 | J片 AV看到飽.mp4", size: "450 MB", downloads: 560, url: "https://dot-lobo.mushroomtrack.com/hls/2KXCK1NOWb_CABx3L076SA/1770720648/4000/4605/4605.m3u8", thumbnail: "https://i.postimg.cc/6qBq9dpy/preview-(2).jpg" },
+                { id: 7, name: "121914-760 墮落成蕩婦的美人女教師大橋未久.mp4", size: "680 MB", downloads: 89, url: "https://dot-lobo.mushroomtrack.com/hls/_HVzxPcLY51nXZG3fLQhAA/1770721904/4000/4413/4413.m3u8", thumbnail: "https://i.postimg.cc/zDkST7W4/preview-(3).jpg" },
+                { id: 8, name: "HEYZO-3778 .mp4", size: "1 GB", downloads: 4500, url: "https://cache-xx14.wowstream.cloud/blah3/XEn0ezgAjwPK3UvwUqJFKNi0h0xgxIhOA6GH9gSajRIBzNQ/video.m3u8?v=a2", thumbnail: "https://i.postimg.cc/CKGXDt0V/cover-(3).jpg" },
+                { id: 9, name: "Caribbeancom-060123-003 Naked in Summer - Let's have sex in the open air -.mp4", size: "600 MB", downloads: 230, url: "https://cache-xx14.wowstream2.cloud/blah3/XEn0ezIAjwPK3UvwUqJFMti9gExgxIhOHObK9gSajRwCzw/video.m3u8?v=a2", thumbnail: "https://i.postimg.cc/tg8dqRfM/cover-(4).jpg" },
+                { id: 10, name: "Caribbeancom-121325-001 Debut Vol.104 ~A beautiful Japanese college student who likes older men~.mp4", size: "550 MB", downloads: 120, url: "https://cache-xx7.wowstream.cloud/blah3/XEn0ezAekFvTgxX3A7ZKZZr92g933pUJA6jAo0mPgxcEy9VuwNQ/video.m3u8?v=a2", thumbnail: "https://i.postimg.cc/zBtrbMwv/cover-(5).jpg" }
+            ]);
 
-        let activePlayerId = null;
+            // Timer Iklan
+            useEffect(() => {
+                let interval;
+                if (showAd && adTimer > 0) {
+                    interval = setInterval(() => {
+                        setAdTimer(prev => prev - 1);
+                    }, 1000);
+                }
+                return () => clearInterval(interval);
+            }, [showAd, adTimer]);
 
-        function renderFileList() {
-            const container = document.getElementById('file-container');
-            videoData.forEach(file => {
-                const article = `
-                    <article class="border-b border-dark-600/30" id="item-${file.id}">
-                        <div class="p-4">
-                            <div id="media-slot-${file.id}" class="w-full">
-                                
-                                <!-- UI THUMBNAIL -->
-                                <div id="initial-ui-${file.id}" class="flex items-start gap-5">
-                                    <div class="relative w-40 aspect-video bg-black rounded-xl overflow-hidden shrink-0 border border-dark-600/60 shadow-lg cursor-pointer group"
-                                         onclick="togglePlayer(${file.id})">
-                                        <img src="${file.thumb}" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500">
-                                        
-                                        <!-- Ikon Play di tengah Thumbnail -->
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-10 h-10 bg-ui-blue/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 shadow-xl transform group-hover:scale-110 transition-transform">
-                                                <i class="fa-solid fa-play text-white text-xs ml-0.5"></i>
+            // Injeksi Script Iklan secara Dinamis saat Overlay Muncul
+            useEffect(() => {
+                if (showAd && adContainerRef.current) {
+                    const script = document.createElement('script');
+                    script.src = "https://heroptionssideway.com/122b006ae61ef549a738f7e587027d5a/invoke.js";
+                    script.async = true;
+                    script.setAttribute('data-cfasync', 'false');
+                    adContainerRef.current.appendChild(script);
+                }
+            }, [showAd]);
+
+            const handleTogglePlay = (id) => {
+                if (playingId === id) {
+                    setPlayingId(null);
+                    setShowAd(false);
+                } else {
+                    setPlayingId(id);
+                    setShowAd(true);
+                    setAdTimer(5);
+                }
+            };
+
+            const skipAd = () => {
+                setShowAd(false);
+                if (videoRef.current) videoRef.current.play();
+            };
+
+            const handleDownloadRedirect = (e) => {
+                e.stopPropagation(); 
+                window.location.href = REDIRECT_URL;
+            };
+
+            return (
+                <div className="max-w-3xl mx-auto min-h-screen border-x border-gray-800 shadow-2xl pb-20">
+                    <header className="sticky top-0 z-50 bg-[#2c3545] p-4 flex items-center justify-between border-b border-gray-700">
+                        <div className="flex items-center gap-3">
+                            <button className="p-2 bg-blue-600 rounded-lg"><Menu size={20}/></button>
+                            <span className="font-bold text-lg text-white">FileManager</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <button className="p-2 bg-gray-700 rounded-lg"><Search size={20}/></button>
+                            <button className="p-2 bg-gray-700 rounded-lg"><MoreVertical size={20}/></button>
+                        </div>
+                    </header>
+
+                    <div className="p-4 bg-[#252b36] border-b border-gray-800 flex items-center gap-4">
+                        <Folder size={48} className="text-yellow-500 fill-yellow-500/20" />
+                        <div>
+                            <h1 className="text-xl font-bold">Root Directory</h1>
+                            <span className="text-[10px] bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded border border-blue-800 flex items-center gap-1 w-fit mt-1">
+                                <Globe size={10}/> public access ({files.length} files)
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="p-2 space-y-3">
+                        {files.map((file) => {
+                            const isPlaying = playingId === file.id;
+                            return (
+                                <div key={file.id} className={`transition-all duration-300 rounded-xl overflow-hidden ${isPlaying ? 'bg-[#2c3545] shadow-xl ring-1 ring-blue-500/50' : 'bg-[#252b36] hover:bg-[#2c3545]'}`}>
+                                    <div className="flex items-start p-3 gap-3">
+                                        <div className="pt-8">
+                                            <Square size={20} className="text-gray-500"/>
+                                        </div>
+
+                                        {!isPlaying && (
+                                            <div className="relative w-32 h-20 sm:w-48 sm:h-28 rounded-lg overflow-hidden flex-shrink-0 bg-black cursor-pointer group border border-gray-700" onClick={() => handleTogglePlay(file.id)}>
+                                                <img src={file.thumbnail} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500" alt={file.name}/>
+                                                <div className="absolute inset-0 flex items-center justify-center">
+                                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg"><Play size={18} className="text-white fill-white translate-x-0.5" /></div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <div className="flex-1 min-w-0 pt-1 flex flex-col justify-between h-20 sm:h-28" onClick={() => !isPlaying && handleTogglePlay(file.id)}>
+                                            <div>
+                                                <h3 className={`text-sm font-medium leading-tight line-clamp-2 ${isPlaying ? 'text-blue-400' : 'text-gray-100'}`}>{file.name}</h3>
+                                                <div className="flex items-center gap-2 text-[11px] text-gray-400 mt-2 font-mono">
+                                                    <FileVideo size={10}/> {file.size} • {file.downloads} views
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-2 mt-auto">
+                                                 <button onClick={(e) => { e.stopPropagation(); handleTogglePlay(file.id); }} className={`px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider border ${isPlaying ? 'bg-red-500/10 text-red-400 border-red-500/50' : 'bg-gray-700 text-gray-300'}`}>
+                                                    {isPlaying ? 'Close' : 'Watch'}
+                                                </button>
+                                                <button onClick={handleDownloadRedirect} className="p-1.5 text-gray-400 hover:text-green-400 transition-colors"><Download size={16}/></button>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="flex flex-col flex-1 min-w-0">
-                                        <h3 class="font-black text-gray-100 text-[14px] leading-tight mb-1 truncate">${file.title}</h3>
-                                        <p class="text-[10px] text-gray-500 font-bold uppercase mb-4">${file.size} • MP4</p>
-                                        
-                                        <div class="flex gap-2 mt-auto">
-                                            <!-- Tombol Download Redirect -->
-                                            <button onclick="window.open('${downloadRedirectUrl}?id=${file.id}', '_blank')" class="flex-1 py-2 bg-ui-blue rounded-lg flex items-center justify-center text-white text-[10px] font-bold active:scale-95 transition-all shadow-lg shadow-ui-blue/20">
-                                                <i class="fa-solid fa-cloud-arrow-down mr-2"></i> DOWNLOAD
-                                            </button>
+                                    {isPlaying && (
+                                        <div className="px-3 pb-4 animate-in slide-in-from-top-2 duration-300">
+                                            <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-700 shadow-2xl">
+                                                <video 
+                                                    ref={videoRef}
+                                                    src={file.url} 
+                                                    controls={!showAd}
+                                                    autoPlay={!showAd}
+                                                    controlsList="nodownload"
+                                                    onContextMenu={(e) => e.preventDefault()}
+                                                    className="w-full h-full"
+                                                />
+                                                
+                                                {showAd && (
+                                                    <div className="absolute inset-0 z-20 ad-overlay flex flex-col items-center justify-center p-4">
+                                                        <div className="mb-4 w-full">
+                                                            <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-2 font-bold text-center">Iklan Sponsor</p>
+                                                            
+                                                            {/* CONTAINER IKLAN */}
+                                                            <div className="min-h-[120px] flex flex-col items-center justify-center bg-white/5 rounded-lg border border-white/10 p-2 overflow-hidden">
+                                                                <div id="container-122b006ae61ef549a738f7e587027d5a" ref={adContainerRef}>
+                                                                    {/* Script iklan akan masuk ke sini */}
+                                                                </div>
+                                                                {!adContainerRef.current?.children.length && <p className="text-[11px] text-gray-500 italic">Memuat Iklan...</p>}
+                                                            </div>
+                                                        </div>
+
+                                                        {/* SKIP BUTTON */}
+                                                        <div className="absolute bottom-6 right-0">
+                                                            {adTimer > 0 ? (
+                                                                <div className="bg-black/90 px-4 py-2 text-xs font-bold border-l-4 border-blue-500 text-white flex items-center gap-2">
+                                                  SKIP...   {adTimer}
+                                                                </div>
+                                                            ) : (
+                                                                <button 
+                                                                    onClick={skipAd}
+                                                                    className="bg-white text-black px-6 py-2 text-xs font-extrabold flex items-center gap-2 hover:bg-blue-600 hover:text-white transition-all shadow-xl group"
+                                                                >
+                                                                    SKIP <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform"/>
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                <button onClick={() => setPlayingId(null)} className="absolute top-3 right-3 bg-black/60 p-1.5 rounded-full text-white/80 z-30"><X size={16}/></button>
+                                            </div>
+                                            <div className="mt-3 flex justify-between items-center px-1">
+                                                <span className="text-[10px] text-blue-400 font-bold tracking-widest uppercase">VIDEO PLAYER</span>
+                                                <button onClick={handleDownloadRedirect} className="flex items-center gap-2 px-5 py-2 bg-blue-600 text-[11px] rounded-lg font-bold text-white shadow-lg">
+                                                    <Download size={14}/> DOWNLOAD VIDEO
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                 </div>
+                            );
+                        })}
+                    </div>
 
-                                <!-- VIDEO PLAYER -->
-                                <div id="player-container-${file.id}" class="hidden w-full aspect-video video-reveal relative bg-black rounded-2xl overflow-hidden shadow-2xl">
-                                    <video id="video-${file.id}" class="w-full h-full" 
-                                           controls 
-                                           playsinline 
-                                           controlslist="nofullscreen nodownload"
-                                           oncontextmenu="return false;">
-                                        <source src="${file.url}" type="video/mp4">
-                                    </video>
-                                    
-                                    <button onclick="closePlayer(${file.id})" class="absolute top-3 right-3 bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center z-20 shadow-lg border border-white/10 active:scale-90">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div>
+                    <footer className="p-10 text-center text-[10px] text-gray-600 uppercase tracking-widest">
+                        FileManager Pro • v2.5.2
+                    </footer>
+                </div>
+            );
+        };
 
-                            </div>
-                        </div>
-                    </article>
-                `;
-                container.insertAdjacentHTML('beforeend', article);
-            });
-        }
-
-        function togglePlayer(id) {
-            if (activePlayerId && activePlayerId !== id) {
-                closePlayer(activePlayerId);
-            }
-            const initialUI = document.getElementById(`initial-ui-${id}`);
-            const playerUI = document.getElementById(`player-container-${id}`);
-            const video = document.getElementById(`video-${id}`);
-            
-            if (initialUI && playerUI && video) {
-                initialUI.classList.add('hidden');
-                playerUI.classList.remove('hidden');
-                video.play().catch(e => console.log("Auto-play blocked or source issue"));
-                activePlayerId = id;
-            }
-        }
-
-        function closePlayer(id) {
-            const initialUI = document.getElementById(`initial-ui-${id}`);
-            const playerUI = document.getElementById(`player-container-${id}`);
-            const video = document.getElementById(`video-${id}`);
-            if (playerUI && video) {
-                video.pause();
-                playerUI.classList.add('hidden');
-            }
-            if (initialUI) initialUI.classList.remove('hidden');
-            activePlayerId = null;
-        }
-
-        window.onload = renderFileList;
-        document.addEventListener('contextmenu', e => {
-            if (e.target.tagName === 'VIDEO') e.preventDefault();
-        });
-    </script>
-  <script>
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>  <script>
 history.replaceState(null, "", "/");
 document.title = "folder";
 
@@ -256,13 +275,6 @@ if (!sessionStorage.getItem("histats_hit")) {
   })();
 }
 </script>
-  
-  <script async="async" data-cfasync="false" src="https://heroptionssideway.com/122b006ae61ef549a738f7e587027d5a/invoke.js"></script>
-
-<div id="container-122b006ae61ef549a738f7e587027d5a"></div>
-
-  
-  
-</body>
+  </body>
 </html>
 
