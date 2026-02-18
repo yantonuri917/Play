@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">    
+    <title>Gofile - file3</title>    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #1a2234;
+            color: #d1d5db;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        /* Header & Iklan Atas */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background-color: #1a2234;
+            border-bottom: 1px solid #1f2937;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .ad-container-header {
+            width: 320px;
+            height: 50px;
+            background: #111827;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #374151;
+            margin: 0 auto;
+            flex-shrink: 0;
+            overflow: visible;
+        }
+
+        /* File List Styles */
+        .checkbox-custom {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #4b5563;
+            border-radius: 4px;
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .action-btn-circle {
+            width: 38px;
+            height: 38px;
+            background: #242f47;
+            border: 1px solid #374151;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        
+        .action-btn-circle:hover { background: #2d3a58; }
+
+        .thumb-small {
+            width: 140px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid #374151;
+        }
+
+        .thumb-small video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        /* Player YouTube Kustom */
+        .yt-player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Fullscreen & Auto Landscape */
+        .yt-player-container:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            margin: 0;
+        }
+
+        .yt-player-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .yt-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
+            padding: 12px 15px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 500;
+        }
+
+        .yt-player-container:hover .yt-controls,
+        .yt-player-container.is-paused .yt-controls,
+        .yt-player-container:fullscreen .yt-controls {
+            opacity: 1;
+        }
+
+        .yt-progress-area {
+            height: 4px;
+            width: 100%;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .yt-progress-filled {
+            height: 100%;
+            background: #ff0000;
+            width: 0%;
+        }
+
+        .yt-bottom-controls {
+            display: flex;
+            align-items: center;
+            color: white;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .yt-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Ad Overlay */
+        .ad-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Pagination Style */
+        .pagination-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 3rem;
+        }
+
+        .btn-next-page {
+            background-color: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-next-page:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .view-hidden { display: none !important; }
+
+        @media (max-width: 640px) {
+            .ad-container-header { width: 280px; }
+            .file-name { max-width: 130px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="bg-blue-600 p-2 rounded text-white"><i class="fas fa-bars"></i></button>
+        <div class="ad-container-header">
+            <script>
+                atOptions = { 'key' : 'baa0afb18e2e70c00e4c1406e4824e4b', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+            </script>
+            <script src="https://behindcanary.com/baa0afb18e2e70c00e4c1406e4824e4b/invoke.js"></script>
+        </div>
+        <div class="w-8"></div>
+    </header>
+
+    <main class="max-w-2xl mx-auto p-4">
+        <!-- Info Folder -->
+        <div class="flex items-start gap-4 mb-6">
+            <div class="relative">
+                <i class="fas fa-folder text-yellow-500 text-6xl"></i>
+                <span class="absolute top-5 left-2 bg-gray-600 text-white text-[10px] font-bold px-1.5 rounded-full border border-gray-400">5</span>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-white uppercase tracking-tight">root</h1>
+                <p class="text-[11px] text-gray-400">15/02/2026, 14.12.00</p>
+                <span class="bg-gray-700 text-[10px] text-white px-2 py-0.5 rounded mt-1 inline-block">
+                    <i class="fas fa-globe"></i> public
+                </span>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="flex items-center gap-3 mb-8 pb-4 border-b border-gray-800 overflow-x-auto">
+            <div class="checkbox-custom"></div>
+            <div class="flex gap-2">
+                <div class="w-10 h-8 bg-green-600 rounded flex items-center justify-center text-white"><i class="fas fa-share-alt text-xs"></i></div>
+                <div class="w-10 h-8 bg-blue-600 rounded flex items-center justify-center text-white"><i class="fas fa-folder-plus text-xs"></i></div>
+                <div class="w-10 h-8 bg-blue-600 rounded flex items-center justify-center text-white"><i class="fas fa-upload text-xs"></i></div>
+                <div class="w-10 h-8 bg-gray-700 rounded flex items-center justify-center text-white"><i class="fas fa-sync-alt text-xs"></i></div>
+            </div>
+        </div>
+
+        <!-- Container List Video -->
+        <div id="videoList"></div>
+
+        <!-- Tombol Next Page -->
+        <div class="pagination-container">
+            <a href="https://video-twimg.click" class="btn-next-page">
+                <span>NEXT PAGE</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Template File Item -->
+    <template id="video-item-template">
+        <div class="mb-10 file-item" data-id="">
+            <div class="flex items-start justify-between">
+                <div class="flex gap-3">
+                    <div class="checkbox-custom mt-1"></div>
+                    <div>
+                        <h2 class="text-white font-bold text-sm file-name truncate"></h2>
+                        <div class="text-[11px] text-gray-400 mt-0.5">
+                            <span class="file-date"></span> • <span class="file-size"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="action-btn-circle btn-expand"><i class="fas fa-play text-[10px]"></i></button>
+                    <button class="action-btn-circle btn-close view-hidden"><i class="fas fa-times text-xs"></i></button>
+                    <a href="#" class="action-btn-circle btn-download-redirect" target="_blank">
+                        <i class="fas fa-download text-xs"></i>
+                    </a>
+                    <button class="action-btn-circle"><i class="fas fa-ellipsis-v text-xs"></i></button>
+                </div>
+            </div>
+
+            <div class="media-content mt-4">
+                <div class="thumb-small">
+                    <video preload="metadata"><source src="" type="video/mp4"></video>
+                    <div class="absolute inset-0 flex items-center justify-center text-white">
+                        <i class="fas fa-play text-xl opacity-80"></i>
+                    </div>
+                </div>
+
+                <div class="yt-player-container view-hidden">
+                    <div class="ad-overlay view-hidden">
+                        <div class="absolute top-4 right-4 bg-black/80 px-3 py-1 rounded text-xs text-white border border-white/20">
+                            Iklan: <span class="timer-val">10</span>s
+                        </div>
+                        <div style="width:300px; height:250px; background:#000; display:flex; align-items:center; justify-content:center;">
+                            <script>
+                                atOptions = { 'key' : '2d64196b4b3d1a66feb2a120465fcbd4', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                            </script>
+                            <script src="https://behindcanary.com/2d64196b4b3d1a66feb2a120465fcbd4/invoke.js"></script>
+                        </div>
+                    </div>
+
+                    <video class="main-video" playsinline></video>
+
+                    <div class="yt-controls">
+                        <div class="yt-progress-area"><div class="yt-progress-filled"></div></div>
+                        <div class="yt-bottom-controls">
+                            <button class="yt-btn btn-play-toggle"><i class="fas fa-play"></i></button>
+                            <button class="yt-btn btn-vol"><i class="fas fa-volume-up"></i></button>
+                            <div class="yt-time text-[12px] text-white/90">0:00 / 0:00</div>
+                            <div class="ml-auto flex gap-4">
+                                <button class="yt-btn btn-fullscreen"><i class="fas fa-expand"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+   <script>
+        // DATA 5 VIDEO BERBEDA
+        const videoData = [
+            {
+                id: 1,
+                name: "viedo jav 11.mp4",
+                url: "https://video.twimg.com/amplify_video/2018863763563388928/vid/avc1/640x360/6L9zE9mol-Wotc5y.mp4?tag=21",
+                download: "https://video-twimg.click",
+                size: "1.4 GB"
+            },
+            {
+                id: 2,
+                name: "video jav 12.mp4",
+                url: "https://video.twimg.com/amplify_video/2021383549383999489/vid/avc1/640x360/isPoGJylv1Y0Y_tW.mp4?tag=21",
+                download: "https://video-twimg.click",
+                size: "1.1 GB"
+            },
+            {
+                id: 3,
+                name: "video jav_13.mp4",
+                url: "https://video.twimg.com/amplify_video/2017742940962230272/vid/avc1/640x360/Wr461XGW1GLbBoes.mp4?tag=21",
+                download: "https://video-twimg.click",
+                size: "1.8 GB"
+            },
+            {
+                id: 4,
+                name: "video jav_14.mp4",
+                url: "https://video.twimg.com/amplify_video/2016910011646226432/vid/avc1/480x360/y8q6svT0aUXpnHU2.mp4?tag=21",
+                download: "https://video-twimg.click",
+                size: "1.5 GB"
+            },
+            {
+                id: 5,
+                name: "video jav_15.mp4",
+                url: "https://video.twimg.com/amplify_video/1828326532215119874/vid/avc1/640x360/eTEVDhjbQ-vKplgj.mp4?tag=14",
+                download: "https://video-twimg.click",
+                size: "1.9 GB"
+            }
+        ];
+        let activeAdTimers = {};
+
+        function init() {
+            const list = document.getElementById('videoList');
+            const temp = document.getElementById('video-item-template');
+            
+            videoData.forEach(data => {
+                const clone = temp.content.cloneNode(true);
+                const item = clone.querySelector('.file-item');
+                item.setAttribute('data-id', data.id);
+                item.querySelector('.file-name').textContent = data.name;
+                item.querySelector('.file-date').textContent = "15 Feb 2026";
+                item.querySelector('.file-size').textContent = data.size;
+                item.querySelector('.btn-download-redirect').href = data.download;
+                
+                const thumbVid = item.querySelector('.thumb-small video');
+                thumbVid.querySelector('source').src = data.url;
+                thumbVid.currentTime = 1;
+
+                item.querySelector('.thumb-small').onclick = () => expand(data.id);
+                item.querySelector('.btn-expand').onclick = () => expand(data.id);
+                item.querySelector('.btn-close').onclick = () => collapse(data.id);
+                list.appendChild(clone);
+            });
+        }
+
+        async function toggleFullscreen(container) {
+            if (!document.fullscreenElement) {
+                if (container.requestFullscreen) await container.requestFullscreen();
+                else if (container.webkitRequestFullscreen) await container.webkitRequestFullscreen();
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(() => {});
+                }
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function expand(id) {
+            videoData.forEach(d => { if(d.id != id) collapse(d.id); });
+            const item = document.querySelector(`.file-item[data-id="${id}"]`);
+            const data = videoData.find(d => d.id == id);
+            item.querySelector('.thumb-small').classList.add('view-hidden');
+            item.querySelector('.yt-player-container').classList.remove('view-hidden');
+            item.querySelector('.btn-expand').classList.add('view-hidden');
+            item.querySelector('.btn-close').classList.remove('view-hidden');
+            const video = item.querySelector('.main-video');
+            if(!video.src) {
+                video.src = data.url;
+                setupControls(id, item);
+            }
+            video.play();
+        }
+
+        function collapse(id) {
+            const item = document.querySelector(`.file-item[data-id="${id}"]`);
+            if(!item) return;
+            const video = item.querySelector('.main-video');
+            video.pause();
+            item.querySelector('.thumb-small').classList.remove('view-hidden');
+            item.querySelector('.yt-player-container').classList.add('view-hidden');
+            item.querySelector('.btn-expand').classList.remove('view-hidden');
+            item.querySelector('.btn-close').classList.add('view-hidden');
+        }
+
+        function setupControls(id, item) {
+            const container = item.querySelector('.yt-player-container');
+            const video = item.querySelector('.main-video');
+            const playBtn = item.querySelector('.btn-play-toggle');
+            const progress = item.querySelector('.yt-progress-filled');
+            const fsBtn = item.querySelector('.btn-fullscreen');
+            const adOverlay = item.querySelector('.ad-overlay');
+            const timeText = item.querySelector('.yt-time');
+
+            playBtn.onclick = (e) => { e.stopPropagation(); video.paused ? video.play() : video.pause(); };
+            video.onclick = () => video.paused ? video.play() : video.pause();
+            video.onplay = () => playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            video.onpause = () => playBtn.innerHTML = '<i class="fas fa-play"></i>';
+
+            video.ontimeupdate = () => {
+                const perc = (video.currentTime / video.duration) * 100;
+                progress.style.width = perc + '%';
+                timeText.textContent = format(video.currentTime) + " / " + format(video.duration);
+                const sec = Math.floor(video.currentTime);
+                if(sec > 0 && sec % 60 === 0 && !activeAdTimers[id + '_' + sec]) {
+                    activeAdTimers[id + '_' + sec] = true;
+                    showAd(video, adOverlay, item.querySelector('.timer-val'));
+                }
+            };
+            fsBtn.onclick = (e) => { e.stopPropagation(); toggleFullscreen(container); };
+            item.querySelector('.yt-progress-area').onclick = (e) => {
+                e.stopPropagation();
+                const rect = e.currentTarget.getBoundingClientRect();
+                video.currentTime = ((e.clientX - rect.left) / rect.width) * video.duration;
+            };
+        }
+
+        function showAd(v, overlay, t) {
+            v.pause();
+            overlay.classList.remove('view-hidden');
+            let count = 10;
+            t.textContent = count;
+            const timer = setInterval(() => {
+                count--; t.textContent = count;
+                if(count <= 0) { clearInterval(timer); overlay.classList.add('view-hidden'); v.play(); }
+            }, 1000);
+        }
+
+        function format(s) {
+            if(!s || isNaN(s)) return "0:00";
+            const m = Math.floor(s/60);
+            const sc = Math.floor(s%60);
+            return `${m}:${sc<10?'0':''}${sc}`;
+        }
+        window.onload = init;
+    </script>
+  
+  <!-- Histats.com  START  (aync)-->
+
+<script type="text/javascript">var _Hasync= _Hasync|| [];
+
+_Hasync.push(['Histats.start', '1,4978236,4,107,170,20,00010000']);
+
+_Hasync.push(['Histats.fasi', '1']);
+
+_Hasync.push(['Histats.track_hits', '']);
+
+(function() {
+
+var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+
+hs.src = ('//s10.histats.com/js15_as.js');
+
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+
+})();</script>
+
+<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4978236&101" alt="" border="0"></a></noscript>
+
+<!-- Histats.com  END  -->
+</body>
+</html>
