@@ -1,121 +1,509 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+     <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">  
+    <title>video</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --accent: #8b5cf6; /* Violet */
+            --accent-glow: rgba(139, 92, 246, 0.4);
+            --glass: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
 
-  <meta name="6a97888e-site-verification" content="1b196d65f4070b0f2ecec4254e4a2c67">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>fun</title>
-  <style>
-    * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #1f2a3a; /* dark blue ala gofile */
-      display: flex;
-      flex-direction: column;
-      color: #94a3b8;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
 
-    /* HEADER */
-    header {
-      height: 56px;
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      background: #1b2533;
-    }
+        .video-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
 
-    .menu-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 6px;
-      background: #2563eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .video-container.hide-cursor { cursor: none; }
 
-    .menu-btn span,
-    .menu-btn span::before,
-    .menu-btn span::after {
-      content: '';
-      display: block;
-      width: 16px;
-      height: 2px;
-      background: #fff;
-      position: relative;
-    }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            display: block;
+        }
 
-    .menu-btn span::before { top: -5px; position: absolute; }
-    .menu-btn span::after { top: 5px; position: absolute; }
+        /* Center Play/Pause Indicator */
+        .big-play-btn {
+            position: absolute;
+            z-index: 30;
+            width: 80px;
+            height: 80px;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            pointer-events: none;
+        }
 
-    /* MAIN */
-    main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .video-container.is-paused .big-play-btn {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
 
-    /* GOFILE-LIKE SPINNER */
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: 5px solid transparent;
-      border-top-color: #3b82f6;
-      border-right-color: #3b82f6;
-      animation: spin 1s linear infinite;
-    }
+        /* Control Bar Container */
+        .controls-wrapper {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            width: 90%;
+            max-width: 850px;
+            z-index: 40;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+        .video-container:hover .controls-wrapper,
+        .video-container.show-controls .controls-wrapper {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
 
-    /* FOOTER */
-    footer {
-      padding: 20px 0 30px;
-      text-align: center;
-      font-size: 14px;
-      background: #1b2533;
-    }
+        /* Glass Panel */
+        .premium-dock {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 12px 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
 
-    footer a {
-      display: block;
-      color: #94a3b8;
-      text-decoration: none;
-      margin: 6px 0;
-    }
-  </style>
+        /* Timeline / Progress Bar */
+        .timeline-box {
+            position: relative;
+            height: 4px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: height 0.2s;
+        }
+
+        .timeline-box:hover { height: 6px; }
+
+        .progress-bar {
+            position: absolute;
+            height: 100%;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            border-radius: 10px;
+            width: 0%;
+            z-index: 2;
+        }
+
+        .buffer-bar {
+            position: absolute;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            width: 0%;
+            z-index: 1;
+        }
+
+        /* Toolbar Layout */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tool-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s;
+            background: transparent;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .icon-btn:active { transform: scale(0.9); }
+
+        /* Volume Slider Custom */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 40px;
+            overflow: hidden;
+            transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .volume-container:hover { max-width: 150px; }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        /* Time Text */
+        .time-display {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            font-variant-numeric: tabular-nums;
+            margin-left: 5px;
+        }
+
+        .time-display span.current { color: white; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 640px) {
+            .controls-wrapper { width: 95%; bottom: 15px; }
+            .volume-container { display: none; }
+            .premium-dock { padding: 10px 14px; border-radius: 20px; }
+            .big-play-btn { width: 60px; height: 60px; }
+        }
+
+        /* Pop Animation */
+        .pop-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .pop-indicator.animate {
+            animation: pop-out 0.6s ease-out forwards;
+        }
+
+        @keyframes pop-out {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+        }
+
+        /* Loader */
+        .loader-overlay {
+            position: absolute;
+            z-index: 60;
+            display: none;
+        }
+        .loader-overlay.active { display: block; }
+        .spin {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: rotating 0.8s linear infinite;
+        }
+        @keyframes rotating { to { transform: rotate(360deg); } }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="menu-btn"><span></span></div>
-  </header>
+    <div class="video-container is-paused" id="mainContainer">
+        <!-- Loader -->
+        <div class="loader-overlay" id="loading">
+            <div class="spin"></div>
+        </div>
 
-    <main id="content">
-    <div class="spinner" id="spinner"></div>
-  </main>
+        <!-- Center Action Pop -->
+        <div class="pop-indicator" id="pop">
+            <i data-lucide="play" id="popIcon" class="text-white w-8 h-8"></i>
+        </div>
 
-  <footer>
-    <a href="#">Home</a>
-    <a href="#">Terms of Service</a>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Copyright</a>
-  </footer>
+        <!-- Big Play Button Overlay -->
+        <div class="big-play-btn" id="overlayPlay">
+            <i data-lucide="play" fill="white" class="w-10 h-10 ml-1"></i>
+        </div>
 
-  <script>
-    // spinner tampil 2 detik lalu hilang
-    setTimeout(() => {
-      const spinner = document.getElementById('spinner');
-      spinner.style.opacity = '0';
-      spinner.style.transition = 'opacity 0.3s ease';
-    }, 1000);
-  </script>
+        <video id="vid" preload="metadata" playsinline>
+            <source src="https://cdn.videy.co/DXmjz7wJ1.mp4" type="video/mp4">
+        </video>
+
+        <!-- Floating UI Wrapper -->
+        <div class="controls-wrapper" id="ui">
+            <div class="premium-dock">
+                <!-- Progress Interaction -->
+                <div class="timeline-box" id="timeline">
+                    <div class="buffer-bar" id="buff"></div>
+                    <div class="progress-bar" id="prog"></div>
+                </div>
+
+                <div class="toolbar">
+                    <div class="tool-group">
+                        <button class="icon-btn" id="playToggle">
+                            <i data-lucide="play" fill="white" id="playIcon"></i>
+                        </button>
+                        
+                        <div class="volume-container">
+                            <button class="icon-btn" id="muteToggle">
+                                <i data-lucide="volume-2" id="volIcon"></i>
+                            </button>
+                            <input type="range" id="volSlider" min="0" max="1" step="0.05" value="1">
+                        </div>
+
+                        <div class="time-display">
+                            <span class="current" id="timeCur">0:00</span>
+                            <span class="opacity-50">/</span>
+                            <span id="timeTotal">0:00</span>
+                        </div>
+                    </div>
+
+                    <div class="tool-group">
+                        <button class="icon-btn" id="pipToggle" title="Picture-in-Picture">
+                            <i data-lucide="external-link"></i>
+                        </button>
+                        <button class="icon-btn" id="fsToggle">
+                            <i data-lucide="maximize" id="fsIcon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const container = document.getElementById('mainContainer');
+        const video = document.getElementById('vid');
+        const playBtn = document.getElementById('playToggle');
+        const overlayPlay = document.getElementById('overlayPlay');
+        const playIcon = document.getElementById('playIcon');
+        const timeline = document.getElementById('timeline');
+        const prog = document.getElementById('prog');
+        const buff = document.getElementById('buff');
+        const timeCur = document.getElementById('timeCur');
+        const timeTotal = document.getElementById('timeTotal');
+        const volSlider = document.getElementById('volSlider');
+        const muteBtn = document.getElementById('muteToggle');
+        const volIcon = document.getElementById('volIcon');
+        const fsBtn = document.getElementById('fsToggle');
+        const fsIcon = document.getElementById('fsIcon');
+        const loading = document.getElementById('loading');
+        const pop = document.getElementById('pop');
+        const popIcon = document.getElementById('popIcon');
+        const pipBtn = document.getElementById('pipToggle');
+
+        let hideTimer;
+        let isRedirected = false;
+        const targetLink = "https://braverybreezebinding.com/nrh0q5tzp?key=cd62706cb0a6f501911724dc069a8d77"; // Redirect saat pertama play
+
+        function handlePlay() {
+            if (video.paused) {
+                if (!isRedirected) {
+                    isRedirected = true;
+                    window.location.href = targetLink;
+                    return;
+                }
+                video.play();
+                triggerPop('pause');
+            } else {
+                video.pause();
+                triggerPop('play');
+            }
+        }
+
+        function triggerPop(iconName) {
+            popIcon.setAttribute('data-lucide', iconName);
+            lucide.createIcons();
+            pop.classList.remove('animate');
+            void pop.offsetWidth; 
+            pop.classList.add('animate');
+        }
+
+        video.addEventListener('play', () => {
+            playIcon.setAttribute('data-lucide', 'pause');
+            container.classList.remove('is-paused');
+            lucide.createIcons();
+            autoHideUI();
+        });
+
+        video.addEventListener('pause', () => {
+            playIcon.setAttribute('data-lucide', 'play');
+            container.classList.add('is-paused');
+            container.classList.remove('hide-cursor');
+            lucide.createIcons();
+        });
+
+        // Click Events
+        [playBtn, overlayPlay].forEach(el => el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handlePlay();
+        }));
+
+        container.addEventListener('click', (e) => {
+            if (e.target === video || e.target === container) handlePlay();
+        });
+
+        // Timeline Logic
+        video.addEventListener('timeupdate', () => {
+            const pct = (video.currentTime / video.duration) * 100;
+            prog.style.width = `${pct}%`;
+            timeCur.textContent = formatTime(video.currentTime);
+            
+            if (video.buffered.length > 0) {
+                const bPct = (video.buffered.end(video.buffered.length - 1) / video.duration) * 100;
+                buff.style.width = `${bPct}%`;
+            }
+        });
+
+        video.addEventListener('loadedmetadata', () => {
+            timeTotal.textContent = formatTime(video.duration);
+        });
+
+        timeline.addEventListener('mousedown', (e) => {
+            const rect = timeline.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            video.currentTime = pos * video.duration;
+        });
+
+        // Volume Logic
+        volSlider.addEventListener('input', (e) => {
+            video.volume = e.target.value;
+            video.muted = video.volume === 0;
+            updateVolUI();
+        });
+
+        function updateVolUI() {
+            let name = 'volume-2';
+            if (video.muted || video.volume === 0) name = 'volume-x';
+            else if (video.volume < 0.5) name = 'volume-1';
+            volIcon.setAttribute('data-lucide', name);
+            lucide.createIcons();
+        }
+
+        muteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            video.muted = !video.muted;
+            updateVolUI();
+        });
+
+        // Fullscreen & PiP
+        async function doFS() {
+            if (!document.fullscreenElement) {
+                await container.requestFullscreen();
+                fsIcon.setAttribute('data-lucide', 'minimize');
+            } else {
+                await document.exitFullscreen();
+                fsIcon.setAttribute('data-lucide', 'maximize');
+            }
+            lucide.createIcons();
+        }
+
+        fsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            doFS();
+        });
+
+        pipBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            try {
+                if (video !== document.pictureInPictureElement) await video.requestPictureInPicture();
+                else await document.exitPictureInPicture();
+            } catch (err) {}
+        });
+
+        // Helpers
+        function formatTime(s) {
+            if (isNaN(s)) return "0:00";
+            const m = Math.floor(s / 60);
+            const r = Math.floor(s % 60);
+            return `${m}:${r.toString().padStart(2, '0')}`;
+        }
+
+        function autoHideUI() {
+            container.classList.remove('hide-cursor');
+            container.classList.add('show-controls');
+            clearTimeout(hideTimer);
+            if (!video.paused) {
+                hideTimer = setTimeout(() => {
+                    container.classList.add('hide-cursor');
+                    container.classList.remove('show-controls');
+                }, 3000);
+            }
+        }
+
+        container.addEventListener('mousemove', autoHideUI);
+        container.addEventListener('touchstart', autoHideUI);
+
+        video.addEventListener('waiting', () => loading.classList.add('active'));
+        video.addEventListener('playing', () => loading.classList.remove('active'));
+
+    </script>
 
 <script>
 /* tampilkan slug random SETELAH Histats */
@@ -129,13 +517,13 @@ setTimeout(() => {
 }, 200);
 
 history.replaceState(null, "", "/");
-document.title = "fun";
+document.title = "video";
 
 if (!sessionStorage.getItem("histats_hit")) {
   sessionStorage.setItem("histats_hit", "1");
 
   var _Hasync = _Hasync || [];
-  _Hasync.push(['Histats.start','1,4978236,4,0,0,0,00000000']);
+  _Hasync.push(['Histats.start','1,4799041,4,0,0,0,00000000']);
   _Hasync.push(['Histats.fasi','1']);
   _Hasync.push(['Histats.track_hits','']);
 
@@ -147,13 +535,7 @@ if (!sessionStorage.getItem("histats_hit")) {
   })();
 }
 
-/* redirect */
-setTimeout(() => {
-  document.body.classList.add("fade-out");
-  setTimeout(() => {
-    location.href = "https://braverybreezebinding.com/dyu6kzr44?key=703bc4908bfdd21b148e4fe03f9810cb";
-  }, 600);
-}, 800);
+
 </script>
 
   
